@@ -42,7 +42,17 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/apollo'],
+  /*
+   ** apollo module configuration
+   ** https://github.com/nuxt-community/apollo-module
+   */
+  apollo: {
+    clientConfigs: {
+      default: '~/plugins/apollo-config.js'
+    }
+  },
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
