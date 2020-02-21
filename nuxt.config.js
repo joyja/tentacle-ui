@@ -1,6 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
+import getSchema from './getSchema'
 
 export default {
+  hooks: {
+    build: {
+      before(builder) {
+        return getSchema()
+      }
+    }
+  },
   mode: 'universal',
   /*
    ** Headers of the page
