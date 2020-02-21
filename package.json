@@ -10,7 +10,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "test": "jest",
+    "get-schema": "node ./getSchema.js"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
