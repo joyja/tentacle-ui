@@ -33,9 +33,7 @@ const getSchema = function() {
       result.data.__schema.types = filteredData
       fs.writeFileSync('./schema.json', JSON.stringify(result.data), (err) => {
         if (err) {
-          console.error('Error writing fragmentTypes file', err)
-        } else {
-          console.log('Fragment types successfully extracted!')
+          throw new Error('Error writing fragmentTypes file', err)
         }
       })
     })
