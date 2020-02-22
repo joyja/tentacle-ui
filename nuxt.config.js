@@ -1,6 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
+import getSchema from './getSchema'
 
 export default {
+  hooks: {
+    build: {
+      before(builder) {
+        return getSchema()
+      }
+    }
+  },
   mode: 'universal',
   /*
    ** Headers of the page
@@ -42,7 +50,17 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/apollo'],
+  /*
+   ** apollo module configuration
+   ** https://github.com/nuxt-community/apollo-module
+   */
+  apollo: {
+    clientConfigs: {
+      default: '~/plugins/apollo-config.js'
+    }
+  },
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
