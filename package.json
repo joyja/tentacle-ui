@@ -11,7 +11,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
