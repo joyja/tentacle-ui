@@ -4,6 +4,7 @@ import getFragmentTypes from './getFragmentTypes'
 export default {
   hooks: {
     build: {
+      analyze: true,
       before(builder) {
         return getFragmentTypes()
       }
@@ -38,7 +39,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vuetify.js'],
+  plugins: [],
   /*
    ** Nuxt.js dev-modules
    */
