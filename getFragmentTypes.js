@@ -1,7 +1,10 @@
 const fs = require('fs')
 const fetch = require('node-fetch')
 
-const url = process.env.TENTACLE_URL || 'http://localhost:4000'
+const prefix = process.env.TENTACLE_SECURE ? 'https' : 'http'
+const hostname = process.env.TENTACLE_HOST || 'localhost'
+const port = process.env.TENTACLE_PORT || 4000
+const url = `${prefix}://${hostname}:${port}/`
 
 const getSchema = function() {
   return fetch(url, {
