@@ -19,7 +19,17 @@ const tags = gql`
   ${fragment.tag}
 `
 
+const scanClasses = gql`
+  query ScanClasses {
+    scanClasses {
+      ...ScanClassBasic
+    }
+  }
+  ${fragment.scanClass}
+`
+
 export default {
   user,
-  tags
+  tags,
+  scanClasses
 }

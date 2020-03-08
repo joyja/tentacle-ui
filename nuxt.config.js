@@ -10,6 +10,11 @@ export default {
       }
     }
   },
+  env: {
+    tentacleSecure: process.env.TENTACLE_SECURE || false,
+    tentacleHost: process.env.TENTACLE_HOST,
+    tentaclePort: process.env.TENTACLE_PORT || 4000
+  },
   mode: 'universal',
   /*
    ** Headers of the page
