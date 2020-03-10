@@ -15,7 +15,7 @@
     "test:ci": "jest",
     "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
