@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "User interface for the tentacle industrial automation gateway",
   "author": "James A. Joy",
-  "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
