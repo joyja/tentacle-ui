@@ -33,12 +33,14 @@
           v-model="datatype"
           :items="datatypeItems"
           label="Datatype"
+          :rules="datatypeRules"
         ></v-select>
         <v-select
           :id="`tag${identifier}scanClass`"
           v-model="scanClass"
           :items="scanClassItems"
           label="Scan Class"
+          :rules="scanClassRules"
         ></v-select>
         <v-alert
           transition="scale-transition"
@@ -127,10 +129,8 @@ export default {
         return 'mdi-plus'
       } else if (this.operation === `update`) {
         return 'mdi-pencil'
-      } else if (this.operation === `delete`) {
-        return 'mdi-delete'
       } else {
-        return 'mdi-error'
+        return 'mdi-delete'
       }
     },
     identifier() {
@@ -143,10 +143,8 @@ export default {
         return graphql.mutation.createTag
       } else if (this.operation === `update`) {
         return graphql.mutation.updateTag
-      } else if (this.operation === `delete`) {
-        return graphql.mutation.deleteTag
       } else {
-        return null
+        return graphql.mutation.deleteTag
       }
     },
     mutationVariables() {
@@ -167,12 +165,10 @@ export default {
           scanClassId: this.scanClass,
           value: this.value
         }
-      } else if (this.operation === `delete`) {
+      } else {
         return {
           id: this.initialData.id
         }
-      } else {
-        return null
       }
     }
   },

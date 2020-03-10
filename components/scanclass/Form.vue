@@ -99,10 +99,8 @@ export default {
         return 'mdi-plus'
       } else if (this.operation === `update`) {
         return 'mdi-pencil'
-      } else if (this.operation === `delete`) {
-        return 'mdi-delete'
       } else {
-        return 'mdi-error'
+        return 'mdi-delete'
       }
     },
     identifier() {
@@ -115,10 +113,8 @@ export default {
         return graphql.mutation.createScanClass
       } else if (this.operation === `update`) {
         return graphql.mutation.updateScanClass
-      } else if (this.operation === `delete`) {
-        return graphql.mutation.deleteScanClass
       } else {
-        return null
+        return graphql.mutation.deleteScanClass
       }
     },
     mutationVariables() {
@@ -135,12 +131,10 @@ export default {
           description: this.description,
           rate: parseInt(this.rate)
         }
-      } else if (this.operation === `delete`) {
+      } else {
         return {
           id: this.initialData.id
         }
-      } else {
-        return null
       }
     }
   },

@@ -6,10 +6,10 @@
       color="primary"
       slider-color="primary"
     >
-      <v-tab>
+      <v-tab id="tabTag">
         Tags
       </v-tab>
-      <v-tab>
+      <v-tab id="tabScanClass">
         Scan Classes
       </v-tab>
       <v-tabs-items v-model="tab" class="transparent">
@@ -52,6 +52,7 @@
                 <v-card-actions>
                   <v-col>
                     <v-btn
+                      :id="`editTag${tag.id}Button`"
                       color="primary"
                       block
                       @click.stop="openTagUpdateDialog(tag)"
@@ -60,6 +61,7 @@
                   </v-col>
                   <v-col>
                     <v-btn
+                      :id="`deleteTag${tag.id}Button`"
                       color="primary"
                       block
                       @click.stop="openTagDeleteDialog(tag)"
@@ -129,6 +131,7 @@
                     <v-card-actions>
                       <v-col>
                         <v-btn
+                          :id="`editScanClass${scanClass.id}Button`"
                           color="primary"
                           block
                           @click.stop="openScanClassUpdateDialog(scanClass)"
@@ -137,6 +140,7 @@
                       </v-col>
                       <v-col>
                         <v-btn
+                          :id="`deleteScanClass${scanClass.id}Button`"
                           color="primary"
                           block
                           @click.stop="openScanClassDeleteDialog(scanClass)"
@@ -198,21 +202,32 @@ export default {
         query: graphql.query.tags
       })
       .then(({ data: { tags } }) => {
-        return {
-          tags
-        }
+        return tags
+      })
+      .catch((e) => {
+        error = e
+      })
+    const scanClasses = await client
+      .query({
+        query: graphql.query.scanClasses
+      })
+      .then(({ data: { scanClasses } }) => {
+        return scanClasses
       })
       .catch((e) => {
         error = e
       })
     return {
       tags,
+      scanClasses,
       error
     }
   },
   data() {
     return {
-      scanClasses: null,
+      error: null,
+      tags: [],
+      scanClasses: [],
       scanClassSelected: null,
       scanClassCreateDialog: false,
       scanClassEditDialog: false,
