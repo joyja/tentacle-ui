@@ -15,7 +15,7 @@
     "test:ci": "jest",
     "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
-    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
@@ -35,7 +35,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": ">=0.5.1",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "vue-jest": "^4.0.0-0"
   }
