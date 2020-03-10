@@ -10,6 +10,8 @@ const user = gql`
 const scanClass = gql`
   fragment ScanClassBasic on ScanClass {
     id
+    name
+    description
     rate
   }
 `
@@ -21,6 +23,9 @@ const tag = gql`
     description
     value
     datatype
+    max
+    min
+    units
     scanClass {
       ...ScanClassBasic
     }

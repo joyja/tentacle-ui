@@ -12,6 +12,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test:coverage": "jest --coverage",
+    "test:ci": "jest",
     "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
