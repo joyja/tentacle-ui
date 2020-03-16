@@ -22,14 +22,6 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
-          <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="user && user.username" />
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar color="blue-grey darken-4" dark fixed app>
@@ -65,7 +57,18 @@ export default {
   data() {
     return {
       drawer: false,
-      items: [],
+      items: [
+        {
+          icon: 'mdi-tag-multiple-outline',
+          title: 'Tags',
+          to: '/'
+        },
+        {
+          icon: 'mdi-deskphone',
+          title: 'Devices',
+          to: 'devices'
+        }
+      ],
       right: true,
       title: 'Tentacle'
     }

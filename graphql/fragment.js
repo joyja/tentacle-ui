@@ -38,7 +38,7 @@ const tag = gql`
 `
 
 const modbusSource = gql`
-  fragment modbusSourceBasic on modbusSource {
+  fragment ModbusSourceBasic on ModbusSource {
     tag {
       ...TagBasic
     }
@@ -55,14 +55,25 @@ const modbus = gql`
     reverseBits
     reverseWords
     timeout
+    retryRate
     sources {
-      ...modbusSourceBasic
+      ...ModbusSourceBasic
     }
     status
     zeroBased
   }
   ${tag}
   ${modbusSource}
+`
+
+const ethernetip = gql`
+  fragment EthernetIPBasic on EthernetIP {
+    id
+    host
+    slot
+    status
+  }
+  ${tag}
 `
 
 const device = gql`
@@ -80,13 +91,14 @@ const device = gql`
         ...ModbusBasic
       }
       ... on EthernetIP {
-        id
+        ...EthernetIPBasic
       }
     }
   }
   ${user}
   ${tag}
   ${modbus}
+  ${ethernetip}
 `
 
 export default {
