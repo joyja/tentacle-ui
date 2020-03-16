@@ -112,6 +112,124 @@ const deleteTag = gql`
   ${fragment.tag}
 `
 
+const createModbus = gql`
+  mutation CreateModbus(
+    $name: String!
+    $description: String!
+    $host: String!
+    $port: Int!
+    $reverseBits: Boolean!
+    $reverseWords: Boolean!
+    $zeroBased: Boolean!
+    $timeout: Int!
+    $retryRate: Int!
+  ) {
+    createModbus(
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      reverseBits: $reverseBits
+      reverseWords: $reverseWords
+      zeroBased: $zeroBased
+      timeout: $timeout
+      retryRate: $retryRate
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const updateModbus = gql`
+  mutation UpdateModbus(
+    $id: ID!
+    $name: String
+    $description: String
+    $host: String
+    $port: Int
+    $reverseBits: Boolean
+    $reverseWords: Boolean
+    $zeroBased: Boolean
+    $timeout: Int
+    $retryRate: Int
+  ) {
+    updateModbus(
+      id: $id
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      reverseBits: $reverseBits
+      reverseWords: $reverseWords
+      zeroBased: $zeroBased
+      timeout: $timeout
+      retryRate: $retryRate
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const deleteModbus = gql`
+  mutation DeleteModbus($id: ID!) {
+    deleteModbus(id: $id) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const createEthernetIP = gql`
+  mutation CreateEthernetIP(
+    $name: String!
+    $description: String!
+    $host: String!
+    $slot: Int!
+  ) {
+    createEthernetIP(
+      name: $name
+      description: $description
+      host: $host
+      slot: $slot
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const updateEthernetIP = gql`
+  mutation UpdateEthernetIP(
+    $id: ID!
+    $name: String
+    $description: String
+    $host: String
+    $slot: Int
+  ) {
+    updateEthernetIP(
+      id: $id
+      name: $name
+      description: $description
+      host: $host
+      slot: $slot
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const deleteEthernetIP = gql`
+  mutation DeleteEthernetIP($id: ID!) {
+    deleteEthernetIP(id: $id) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
 export default {
   login,
   changePassword,
@@ -120,5 +238,11 @@ export default {
   deleteScanClass,
   createTag,
   updateTag,
-  deleteTag
+  deleteTag,
+  createModbus,
+  updateModbus,
+  deleteModbus,
+  createEthernetIP,
+  updateEthernetIP,
+  deleteEthernetIP
 }

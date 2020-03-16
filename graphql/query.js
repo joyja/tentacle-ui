@@ -28,8 +28,17 @@ const scanClasses = gql`
   ${fragment.scanClass}
 `
 
+const devices = gql`
+  query Devices {
+    devices {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
 export default {
   user,
   tags,
-  scanClasses
+  scanClasses,
+  devices
 }
