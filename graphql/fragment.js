@@ -101,11 +101,66 @@ const device = gql`
   ${ethernetip}
 `
 
+const mqttSource = gql`
+  fragment MqttSourceBasic on MqttSource {
+    id
+    device {
+      ...DeviceBasic
+    }
+  }
+  ${device}
+`
+
+const mqttPrimaryHost = gql`
+  fragment MqttPrimaryHostBasic on MqttPrimaryHost {
+    id
+    name
+    status
+    recordCount
+  }
+`
+
+const mqtt = gql`
+  fragment MqttBasic on Mqtt {
+    id
+    host
+    port
+    group
+    node
+    username
+    password
+    sources {
+      ...MqttSourceBasic
+    }
+    rate
+    encrypt
+    recordLimit
+    primaryHosts {
+      ...MqttPrimaryHostBasic
+    }
+  }
+  ${mqttSource}
+  ${mqttPrimaryHost}
+`
+
+const service = gql`
+  fragment ServiceBasic on Service {
+    id
+    name
+    description
+    config {
+      ...MqttBasic
+    }
+  }
+  ${mqtt}
+`
+
 export default {
   user,
   scanClass,
   tag,
   modbusSource,
   modbus,
-  device
+  device,
+  service
 }

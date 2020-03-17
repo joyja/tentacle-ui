@@ -36,9 +36,20 @@ const devices = gql`
   }
   ${fragment.device}
 `
+
+const services = gql`
+  query Services {
+    services {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
 export default {
   user,
   tags,
   scanClasses,
-  devices
+  devices,
+  services
 }
