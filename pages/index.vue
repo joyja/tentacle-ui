@@ -16,7 +16,7 @@
         <v-tab-item>
           <v-row>
             <v-col v-for="tag in tagsWithCalcs" :key="tag.id">
-              <v-card>
+              <v-card class="d-flex flex-column" height="100%">
                 <v-card-title headline>
                   {{ tag.name }}
                 </v-card-title>
@@ -25,7 +25,8 @@
                   <v-row justify-center no-gutters>
                     <v-col>
                       <v-progress-circular
-                        color="orange"
+                        v-if="tag.datatype !== 'BOOLEAN'"
+                        color="orange darken-2"
                         :rotate="90"
                         :size="100"
                         :width="15"
@@ -34,6 +35,17 @@
                           parseFloat(tag.percentage).toFixed(2)
                         }}</v-progress-circular
                       >
+                      <v-row v-else justify-center>
+                        <v-col width="48px">
+                          <v-switch
+                            v-model="tag.value"
+                            class="switch--center"
+                            color="orange darken-2"
+                            readonly
+                            width="48px"
+                          ></v-switch>
+                        </v-col>
+                      </v-row>
                     </v-col>
                   </v-row>
                   <v-row justify-center dense>
@@ -49,6 +61,7 @@
                     </v-col>
                   </v-row>
                 </v-card-text>
+                <v-spacer></v-spacer>
                 <v-card-actions>
                   <v-col>
                     <v-btn
@@ -252,7 +265,9 @@ export default {
         const percentage = ((tag.value - min) / (max - min)) * 100
         return {
           ...tag,
-          percentage
+          percentage,
+          value:
+            tag.datatype === `BOOLEAN` ? tag.value + '' === 'true' : tag.value
         }
       })
     }
@@ -298,3 +313,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.switch--center > div > div {
+  justify-content: center;
+}
+</style>

@@ -230,6 +230,123 @@ const deleteEthernetIP = gql`
   ${fragment.device}
 `
 
+const createMqtt = gql`
+  mutation CreateMqtt(
+    $name: String!
+    $description: String!
+    $host: String!
+    $port: Int!
+    $group: String!
+    $node: String!
+    $username: String!
+    $password: String!
+    $devices: [ID!]!
+    $rate: Int!
+    $encrypt: Boolean!
+    $recordLimit: Int!
+    $primaryHosts: [String!]
+  ) {
+    createMqtt(
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      group: $group
+      node: $node
+      username: $username
+      password: $password
+      devices: $devices
+      rate: $rate
+      encrypt: $encrypt
+      recordLimit: $recordLimit
+      primaryHosts: $primaryHosts
+    ) {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
+const updateMqtt = gql`
+  mutation UpdateMqtt(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $host: String!
+    $port: Int!
+    $group: String!
+    $node: String!
+    $username: String!
+    $password: String!
+    $rate: Int!
+    $encrypt: Boolean!
+    $recordLimit: Int!
+  ) {
+    updateMqtt(
+      id: $id
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      group: $group
+      node: $node
+      username: $username
+      password: $password
+      rate: $rate
+      encrypt: $encrypt
+      recordLimit: $recordLimit
+    ) {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
+const deleteMqtt = gql`
+  mutation DeleteMqtt($id: ID!) {
+    deleteMqtt(id: $id) {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
+const addMqttSource = gql`
+  mutation AddMqttSource($id: ID!, $deviceId: ID!) {
+    addMqttSource(id: $id, deviceId: $deviceId) {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
+const deleteMqttSource = gql`
+  mutation DeleteMqttSource($id: ID!, $deviceId: ID!) {
+    deleteMqttSource(id: $id, deviceId: $deviceId) {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
+const addMqttPrimaryHost = gql`
+  mutation AddMqttPrimaryHost($id: ID!, $name: String!) {
+    addMqttPrimaryHost(id: $id, name: $name) {
+      ...MqttPrimaryHostBasic
+    }
+  }
+  ${fragment.mqttPrimaryHost}
+`
+
+const deleteMqttPrimaryHost = gql`
+  mutation deleteMqttPrimaryHost($id: ID!, $name: String!) {
+    deleteMqttPrimaryHost(id: $id, name: $name) {
+      ...MqttPrimaryHostBasic
+    }
+  }
+  ${fragment.mqttPrimaryHost}
+`
+
 export default {
   login,
   changePassword,
@@ -244,5 +361,12 @@ export default {
   deleteModbus,
   createEthernetIP,
   updateEthernetIP,
-  deleteEthernetIP
+  deleteEthernetIP,
+  createMqtt,
+  updateMqtt,
+  deleteMqtt,
+  addMqttSource,
+  deleteMqttSource,
+  addMqttPrimaryHost,
+  deleteMqttPrimaryHost
 }

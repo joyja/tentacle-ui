@@ -162,5 +162,6 @@ export default {
   modbusSource,
   modbus,
   device,
-  service
+  service,
+  mqttPrimaryHost
 }
