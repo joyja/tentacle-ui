@@ -45,7 +45,7 @@
     <v-content>
       <nuxt />
     </v-content>
-    <v-footer color="blue-grey darken-4" dark fixed app>
+    <v-footer style="z-index: 5" color="blue-grey darken-4" dark fixed app>
       <span>&copy; JAR Automation {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -67,6 +67,11 @@ export default {
           icon: 'mdi-deskphone',
           title: 'Devices',
           to: 'devices'
+        },
+        {
+          icon: 'mdi-server-network',
+          title: 'Services',
+          to: 'services'
         }
       ],
       right: true,

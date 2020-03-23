@@ -77,7 +77,7 @@ describe('Devices Page', () => {
     expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(1)
     wrapper.setData(result)
   })
-  test(`Clicking the tag edit button sets the show dialog bit and the selected tag ID`, (done) => {
+  test(`Clicking the device edit button sets the show dialog bit and the selected device ID`, (done) => {
     setTimeout(() => {
       wrapper.find(`#editDevice${mockDevices[0].id}Button`).trigger('click')
       setTimeout(() => {
@@ -89,7 +89,7 @@ describe('Devices Page', () => {
       }, 0)
     }, 0)
   })
-  test(`Clicking the tag delete button sets the show dialog bit and the selected tag ID`, (done) => {
+  test(`Clicking the device delete button sets the show dialog bit and the selected device ID`, (done) => {
     wrapper.find(`#deleteDevice${mockDevices[1].id}Button`).trigger('click')
     setTimeout(() => {
       expect(wrapper.vm.deviceSelected.id).toBe(mockDevices[1].id)

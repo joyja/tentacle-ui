@@ -40,7 +40,9 @@
                   }}</span>
                 </v-list-item-content>
                 <v-list-item-action
-                  ><v-icon>mdi-lan-check</v-icon>
+                  ><v-icon
+                    v-text="getStatusIcon(device.config.status)"
+                  ></v-icon>
                 </v-list-item-action>
               </v-list-item>
               <v-list-item>
@@ -134,7 +136,9 @@
                   }}</span>
                 </v-list-item-content>
                 <v-list-item-action
-                  ><v-icon>mdi-lan-check</v-icon>
+                  ><v-icon
+                    v-text="getStatusIcon(device.config.status)"
+                  ></v-icon>
                 </v-list-item-action>
               </v-list-item>
               <v-list-item>
@@ -250,6 +254,15 @@ export default {
       this.deviceEditDialog = false
       this.deviceDeleteDialog = false
       this.$apollo.queries.devices.refetch()
+    },
+    getStatusIcon(status) {
+      if (status === 'connected') {
+        return 'mdi-lan-check'
+      } else if (status === 'connecting') {
+        return 'mdi-lan-pending'
+      } else {
+        return 'mdi-lan-disconnect'
+      }
     }
   },
   apollo: {

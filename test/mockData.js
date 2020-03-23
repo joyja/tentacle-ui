@@ -37,7 +37,7 @@ export const mockTags = [
     name: 'testTag',
     description: 'Test Tag',
     value: '0',
-    datatype: 'FLOAT',
+    datatype: 'BOOLEAN',
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
@@ -89,14 +89,138 @@ export const mockDevices = [
       id: '1',
       host: 'localhost',
       slot: '2',
-      status: 'connected'
+      status: 'connecting'
     },
     __typename: 'Device'
+  },
+  {
+    id: '3',
+    name: 'anotherDevice',
+    description: 'A really terrible device',
+    createdBy: { id: '1', username: 'admin', __typename: 'User' },
+    createdOn: '2020-03-12T13:53:14.000Z',
+    config: {
+      __typename: 'EthernetIP',
+      id: '1',
+      host: 'localhost',
+      slot: '2',
+      status: 'Error: something really bad happened'
+    },
+    __typename: 'Device'
+  }
+]
+
+export const mockServices = [
+  {
+    id: '1',
+    name: 'aService',
+    description: 'A really great service',
+    config: {
+      id: '1',
+      host: 'localhost',
+      port: '1883',
+      group: 'Group 1',
+      node: 'Tentacle 1',
+      username: 'aUsername',
+      password: 'aPassword',
+      sources: [
+        {
+          id: '1',
+          device: mockDevices[0],
+          __typename: 'MqttSource'
+        }
+      ],
+      rate: 5000,
+      encrypt: false,
+      recordLimit: 200,
+      primaryHosts: [
+        {
+          id: '1',
+          name: 'ignition1',
+          status: 'OFFLINE',
+          recordCount: 64420,
+          __typename: 'MqttPrimaryHost'
+        }
+      ],
+      __typename: 'Mqtt'
+    },
+    __typename: 'Service'
+  },
+  {
+    id: '2',
+    name: 'anotherService',
+    description: 'Another really great service',
+    config: {
+      id: '1',
+      host: 'localhost',
+      port: '1883',
+      group: 'Group 1',
+      node: 'Tentacle 2',
+      username: 'aUsername',
+      password: 'aPassword',
+      sources: [
+        {
+          id: '1',
+          device: mockDevices[1],
+          __typename: 'MqttSource'
+        }
+      ],
+      rate: 5000,
+      encrypt: false,
+      recordLimit: 200,
+      primaryHosts: [
+        {
+          id: '1',
+          name: 'ignition1',
+          status: 'ONLINE',
+          recordCount: 120,
+          __typename: 'MqttPrimaryHost'
+        }
+      ],
+      __typename: 'Mqtt'
+    },
+    __typename: 'Service'
+  },
+  {
+    id: '3',
+    name: 'anotherService',
+    description: 'A terrible service',
+    config: {
+      id: '1',
+      host: 'localhost',
+      port: '1883',
+      group: 'Group 1',
+      node: 'Tentacle 2',
+      username: 'aUsername',
+      password: 'aPassword',
+      sources: [
+        {
+          id: '1',
+          device: mockDevices[2],
+          __typename: 'MqttSource'
+        }
+      ],
+      rate: 5000,
+      encrypt: false,
+      recordLimit: 200,
+      primaryHosts: [
+        {
+          id: '1',
+          name: 'ignition1',
+          status: 'Error: Something really bad happened.',
+          recordCount: 120,
+          __typename: 'MqttPrimaryHost'
+        }
+      ],
+      __typename: 'Mqtt'
+    },
+    __typename: 'Service'
   }
 ]
 
 export default {
   mockScanClasses,
   mockTags,
-  mockDevices
+  mockDevices,
+  mockServices
 }
