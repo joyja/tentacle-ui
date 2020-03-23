@@ -154,7 +154,7 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
-          value: this.value
+          value: this.value.toString()
         }
       } else if (this.operation === `update`) {
         return {
@@ -163,7 +163,7 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
-          value: this.value
+          value: this.value.toString()
         }
       } else {
         return {

@@ -8,7 +8,7 @@
     <v-card width="100%" max-width="500px">
       <v-card-text v-if="operation !== 'delete'">
         <v-text-field
-          :id="`service${identifier}name`"
+          :id="`primaryHost${identifier}name`"
           v-model="name"
           name="name"
           label="Name"

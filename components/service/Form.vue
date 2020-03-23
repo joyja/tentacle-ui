@@ -144,6 +144,7 @@
             class="d-flex justify-center"
           >
             <v-btn
+              id="createServiceAddPrimaryHostButton"
               icon
               color="primary"
               dark
@@ -193,7 +194,12 @@
             v-if="operation === 'create'"
             class="d-flex justify-center"
           >
-            <v-btn icon color="primary" dark @click="config.devices.push('')"
+            <v-btn
+              id="createServiceAddSourceButton"
+              icon
+              color="primary"
+              dark
+              @click="config.devices.push('')"
               ><v-icon>mdi-plus</v-icon>
             </v-btn>
           </v-card-actions>
@@ -209,7 +215,7 @@
         >
       </v-card-text>
       <v-card-text v-else>
-        Are you sure you'd like to delete the scan class
+        Are you sure you'd like to delete the service
         <strong>{{ name }}</strong
         >?
         <v-alert
@@ -223,7 +229,13 @@
         >
       </v-card-text>
       <v-card-actions>
-        <v-btn type="submit" block color="primary" :disabled="!valid">
+        <v-btn
+          :id="`${identifier}ServiceButton`"
+          type="submit"
+          block
+          color="primary"
+          :disabled="!valid"
+        >
           <v-icon left>{{ icon }}</v-icon>
           {{ identifier }}
           Service

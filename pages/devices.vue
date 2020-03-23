@@ -136,7 +136,9 @@
                   }}</span>
                 </v-list-item-content>
                 <v-list-item-action
-                  ><v-icon>mdi-lan-check</v-icon>
+                  ><v-icon
+                    v-text="getStatusIcon(device.config.status)"
+                  ></v-icon>
                 </v-list-item-action>
               </v-list-item>
               <v-list-item>

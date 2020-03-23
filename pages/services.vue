@@ -160,6 +160,9 @@
                         </v-list-item-content>
                         <v-list-item-action>
                           <v-btn
+                            :id="
+                              `deletePrimaryHost${service.id}Host${host.id}Button`
+                            "
                             icon
                             color="primary"
                             @click="
@@ -174,6 +177,7 @@
                   </v-card-text>
                   <v-card-text>
                     <v-btn
+                      :id="`createPrimaryHost${service.id}Button`"
                       fab
                       small
                       absolute
@@ -227,6 +231,9 @@
                         </v-list-item-content>
                         <v-list-item-action>
                           <v-btn
+                            :id="
+                              `deleteSource${service.id}Source${source.id}Button`
+                            "
                             icon
                             color="primary"
                             @click.stop="
@@ -241,6 +248,7 @@
                   </v-card-text>
                   <v-card-text>
                     <v-btn
+                      :id="`createSource${service.id}Button`"
                       fab
                       small
                       absolute
@@ -304,6 +312,7 @@
     <v-dialog v-model="serviceDeleteDialog" scrollable max-width="500px">
       <jar-service-form
         operation="delete"
+        :devices="devices"
         :initial-data="serviceSelected"
         @refetch="refetch"
       />
