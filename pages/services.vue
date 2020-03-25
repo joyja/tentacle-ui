@@ -487,10 +487,16 @@ export default {
   },
   apollo: {
     services: {
-      query: graphql.query.services
+      query: graphql.query.services,
+      subscribeToMore: {
+        document: graphql.subscription.serviceUpdate
+      }
     },
     devices: {
-      query: graphql.query.devices
+      query: graphql.query.devices,
+      subscribeToMore: {
+        document: graphql.subscription.deviceUpdate
+      }
     }
   }
 }

@@ -267,7 +267,10 @@ export default {
   },
   apollo: {
     devices: {
-      query: graphql.query.devices
+      query: graphql.query.devices,
+      subscribeToMore: {
+        document: graphql.subscription.deviceUpdate
+      }
     }
   }
 }
