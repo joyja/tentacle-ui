@@ -10,6 +10,26 @@ const tagUpdate = gql`
   ${fragment.tag}
 `
 
+const deviceUpdate = gql`
+  subscription DeviceUpdate {
+    deviceUpdate {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const serviceUpdate = gql`
+  subscription ServiceUpdate {
+    serviceUpdate {
+      ...ServiceBasic
+    }
+  }
+  ${fragment.service}
+`
+
 export default {
-  tagUpdate
+  tagUpdate,
+  deviceUpdate,
+  serviceUpdate
 }

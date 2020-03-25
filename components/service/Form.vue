@@ -347,9 +347,9 @@ export default {
           node: this.config.node,
           username: this.config.username,
           password: this.config.password,
-          rate: this.config.rate,
+          rate: parseInt(this.config.rate),
           encrypt: this.config.encrypt,
-          recordLimit: this.config.recordLimit,
+          recordLimit: parseInt(this.config.recordLimit),
           primaryHosts: this.config.primaryHosts,
           devices: this.config.devices
         }
@@ -364,9 +364,9 @@ export default {
           node: this.config.node,
           username: this.config.username,
           password: this.config.password,
-          rate: this.config.rate,
+          rate: parseInt(this.config.rate),
           encrypt: this.config.encrypt,
-          recordLimit: this.config.recordLimit
+          recordLimit: parseInt(this.config.recordLimit)
         }
       } else {
         return {
