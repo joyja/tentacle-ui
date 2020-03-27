@@ -30,9 +30,9 @@
                         :rotate="90"
                         :size="100"
                         :width="15"
-                        :value="tag.value"
+                        :value="tag.percentage"
                         >{{
-                          parseFloat(tag.percentage).toFixed(2)
+                          parseFloat(tag.value).toFixed(2)
                         }}</v-progress-circular
                       >
                       <v-row v-else justify-center>
