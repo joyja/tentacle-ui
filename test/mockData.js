@@ -46,6 +46,32 @@ export const mockTags = [
     createdOn: new Date().toISOString(),
     max: 300,
     min: 100
+  },
+  {
+    id: '3',
+    name: 'testTag3',
+    description: 'Test Tag3',
+    value: '0',
+    datatype: 'FLOAT',
+    scanClass: mockScanClasses[0],
+    createdBy: {
+      id: '1',
+      username: 'admin'
+    },
+    createdOn: new Date().toISOString()
+  },
+  {
+    id: '4',
+    name: 'testTag4',
+    description: 'Test Tag 4',
+    value: '0',
+    datatype: 'FLOAT',
+    scanClass: mockScanClasses[0],
+    createdBy: {
+      id: '1',
+      username: 'admin'
+    },
+    createdOn: new Date().toISOString()
   }
 ]
 
@@ -58,6 +84,11 @@ export const mockDevices = [
     createdOn: '2020-03-12T13:53:14.000Z',
     config: {
       __typename: 'Modbus',
+      device: {
+        id: '1',
+        name: 'aDevice',
+        description: 'A really great device'
+      },
       id: '1',
       host: 'localhost',
       port: '502',
@@ -107,8 +138,93 @@ export const mockDevices = [
       status: 'Error: something really bad happened'
     },
     __typename: 'Device'
+  },
+  {
+    id: '4',
+    name: 'aDevice',
+    description: 'A really great device',
+    createdBy: { id: '1', username: 'admin', __typename: 'User' },
+    createdOn: '2020-03-12T13:53:14.000Z',
+    config: {
+      __typename: 'Modbus',
+      device: {
+        id: '1',
+        name: 'aDevice',
+        description: 'A really great device'
+      },
+      id: '1',
+      host: 'localhost',
+      port: '502',
+      reverseBits: true,
+      reverseWords: true,
+      timeout: 5000,
+      retryRate: 5000,
+      sources: [
+        {
+          tag: mockTags[2],
+          register: 4865,
+          registerType: 'INPUT_REGISTER',
+          __typename: 'ModbusSource'
+        }
+      ],
+      status: 'connecting',
+      zeroBased: true
+    },
+    __typename: 'Device'
+  },
+  {
+    id: '5',
+    name: 'aDevice',
+    description: 'A really great device',
+    createdBy: { id: '1', username: 'admin', __typename: 'User' },
+    createdOn: '2020-03-12T13:53:14.000Z',
+    config: {
+      __typename: 'Modbus',
+      device: {
+        id: '1',
+        name: 'aDevice',
+        description: 'A really great device'
+      },
+      id: '1',
+      host: 'localhost',
+      port: '502',
+      reverseBits: true,
+      reverseWords: true,
+      timeout: 5000,
+      retryRate: 5000,
+      sources: [
+        {
+          tag: mockTags[3],
+          register: 4866,
+          registerType: 'INPUT_REGISTER',
+          __typename: 'ModbusSource'
+        }
+      ],
+      status: 'Error: something really bad happened',
+      zeroBased: true
+    },
+    __typename: 'Device'
   }
 ]
+
+mockTags[0].source = {
+  modbus: mockDevices[0].config,
+  register: 4864,
+  registerType: 'INPUT_REGISTER',
+  __typename: 'ModbusSource'
+}
+mockTags[2].source = {
+  modbus: mockDevices[3].config,
+  register: 4865,
+  registerType: 'INPUT_REGISTER',
+  __typename: 'ModbusSource'
+}
+mockTags[3].source = {
+  modbus: mockDevices[4].config,
+  register: 4866,
+  registerType: 'INPUT_REGISTER',
+  __typename: 'ModbusSource'
+}
 
 export const mockServices = [
   {

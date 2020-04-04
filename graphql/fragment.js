@@ -32,6 +32,21 @@ const tag = gql`
     createdBy {
       ...UserBasic
     }
+    source {
+      __typename
+      ... on ModbusSource {
+        register
+        registerType
+        modbus {
+          status
+          device {
+            id
+            name
+            description
+          }
+        }
+      }
+    }
   }
   ${user}
   ${scanClass}
@@ -45,6 +60,7 @@ const modbusSource = gql`
     register
     registerType
   }
+  ${tag}
 `
 
 const modbus = gql`
