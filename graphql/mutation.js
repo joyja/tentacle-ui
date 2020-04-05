@@ -275,6 +275,41 @@ const deleteEthernetIP = gql`
   ${fragment.device}
 `
 
+const createEthernetIPSource = gql`
+  mutation CreateEthernetIPSource(
+    $deviceId: ID!
+    $tagId: ID!
+    $tagname: String!
+  ) {
+    createEthernetIPSource(
+      deviceId: $deviceId
+      tagId: $tagId
+      tagname: $tagname
+    ) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
+`
+
+const updateEthernetIPSource = gql`
+  mutation UpdateEthernetIPSource($tagId: ID!, $tagname: String!) {
+    updateEthernetIPSource(tagId: $tagId, tagname: $tagname) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
+`
+
+const deleteEthernetIPSource = gql`
+  mutation DeleteEthernetIPSource($tagId: ID!) {
+    deleteEthernetIPSource(tagId: $tagId) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
+`
+
 const createMqtt = gql`
   mutation CreateMqtt(
     $name: String!
@@ -410,6 +445,9 @@ export default {
   createEthernetIP,
   updateEthernetIP,
   deleteEthernetIP,
+  createEthernetIPSource,
+  updateEthernetIPSource,
+  deleteEthernetIPSource,
   createMqtt,
   updateMqtt,
   deleteMqtt,

@@ -77,7 +77,10 @@
                             class="blue-grey lighten-5"
                           >
                             <v-list-item
-                              v-if="tag.source.__typename === 'ModbusSource'"
+                              v-if="
+                                tag.source &&
+                                  tag.source.__typename === 'ModbusSource'
+                              "
                             >
                               <v-list-item-avatar>
                                 <v-icon
@@ -114,6 +117,70 @@
                                     <v-col class="ml-3">
                                       <strong>Register:</strong>
                                       {{ tag.source.register }}
+                                    </v-col>
+                                  </v-row>
+                                </v-list-item-subtitle>
+                              </v-list-item-content>
+                              <v-list-item-action>
+                                <v-row no-gutters>
+                                  <v-col>
+                                    <v-btn
+                                      :id="`editTagSource${tag.id}Button`"
+                                      color="primary"
+                                      icon
+                                      @click="openDeviceSourceUpdateDialog(tag)"
+                                    >
+                                      <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                  </v-col>
+                                  <v-col>
+                                    <v-btn
+                                      :id="`deleteTagSource${tag.id}Button`"
+                                      color="primary"
+                                      icon
+                                      @click="openDeviceSourceDeleteDialog(tag)"
+                                    >
+                                      <v-icon>mdi-delete</v-icon>
+                                    </v-btn>
+                                  </v-col>
+                                </v-row>
+                              </v-list-item-action>
+                            </v-list-item>
+                            <v-list-item
+                              v-else-if="
+                                tag.source &&
+                                  tag.source.__typename === 'EthernetIPSource'
+                              "
+                            >
+                              <v-list-item-avatar>
+                                <v-icon
+                                  :color="
+                                    tag.source.ethernetip.status !== 'connected'
+                                      ? 'orange'
+                                      : 'primary'
+                                  "
+                                  v-text="
+                                    getDeviceStatusIcon(
+                                      tag.source.ethernetip.status
+                                    )
+                                  "
+                                  >mdi-lan-check</v-icon
+                                >
+                              </v-list-item-avatar>
+                              <v-list-item-content>
+                                <v-list-item-title
+                                  v-text="tag.source.ethernetip.device.name"
+                                />
+                                <v-list-item-subtitle
+                                  v-text="
+                                    tag.source.ethernetip.device.description
+                                  "
+                                />
+                                <v-list-item-subtitle>
+                                  <v-row no-gutters>
+                                    <v-col>
+                                      <strong>Tagname:</strong>
+                                      <span>{{ tag.source.tagname }}</span>
                                     </v-col>
                                   </v-row>
                                 </v-list-item-subtitle>

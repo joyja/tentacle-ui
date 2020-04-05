@@ -72,6 +72,19 @@ export const mockTags = [
       username: 'admin'
     },
     createdOn: new Date().toISOString()
+  },
+  {
+    id: '5',
+    name: 'testTag4',
+    description: 'Test Tag 4',
+    value: '0',
+    datatype: 'FLOAT',
+    scanClass: mockScanClasses[0],
+    createdBy: {
+      id: '1',
+      username: 'admin'
+    },
+    createdOn: new Date().toISOString()
   }
 ]
 
@@ -132,10 +145,22 @@ export const mockDevices = [
     createdOn: '2020-03-12T13:53:14.000Z',
     config: {
       __typename: 'EthernetIP',
+      device: {
+        id: '3',
+        name: 'anotherDevice',
+        description: 'A really terrible device'
+      },
       id: '1',
       host: 'localhost',
       slot: '2',
-      status: 'Error: something really bad happened'
+      status: 'Error: something really bad happened',
+      sources: [
+        {
+          tag: mockTags[5],
+          tagname: 'tagname',
+          __typename: 'EthernetIPSource'
+        }
+      ]
     },
     __typename: 'Device'
   },
@@ -148,7 +173,7 @@ export const mockDevices = [
     config: {
       __typename: 'Modbus',
       device: {
-        id: '1',
+        id: '4',
         name: 'aDevice',
         description: 'A really great device'
       },
@@ -181,7 +206,7 @@ export const mockDevices = [
     config: {
       __typename: 'Modbus',
       device: {
-        id: '1',
+        id: '5',
         name: 'aDevice',
         description: 'A really great device'
       },
@@ -224,6 +249,11 @@ mockTags[3].source = {
   register: 4866,
   registerType: 'INPUT_REGISTER',
   __typename: 'ModbusSource'
+}
+mockTags[4].source = {
+  ethernetip: mockDevices[2].config,
+  tagname: 'aTagname',
+  __typename: 'EthernetIPSource'
 }
 
 export const mockServices = [
