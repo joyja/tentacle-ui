@@ -32,6 +32,32 @@ const tag = gql`
     createdBy {
       ...UserBasic
     }
+    source {
+      __typename
+      ... on ModbusSource {
+        register
+        registerType
+        modbus {
+          status
+          device {
+            id
+            name
+            description
+          }
+        }
+      }
+      ... on EthernetIPSource {
+        tagname
+        ethernetip {
+          status
+          device {
+            id
+            name
+            description
+          }
+        }
+      }
+    }
   }
   ${user}
   ${scanClass}
@@ -45,6 +71,7 @@ const modbusSource = gql`
     register
     registerType
   }
+  ${tag}
 `
 
 const modbus = gql`
@@ -66,14 +93,28 @@ const modbus = gql`
   ${modbusSource}
 `
 
+const ethernetipSource = gql`
+  fragment EthernetIPSourceBasic on EthernetIPSource {
+    tag {
+      ...TagBasic
+    }
+    tagname
+  }
+  ${tag}
+`
+
 const ethernetip = gql`
   fragment EthernetIPBasic on EthernetIP {
     id
     host
     slot
     status
+    sources {
+      ...EthernetIPSourceBasic
+    }
   }
   ${tag}
+  ${ethernetipSource}
 `
 
 const device = gql`
@@ -161,6 +202,8 @@ export default {
   tag,
   modbusSource,
   modbus,
+  ethernetipSource,
+  ethernetip,
   device,
   service,
   mqttPrimaryHost

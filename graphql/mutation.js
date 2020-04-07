@@ -181,6 +181,51 @@ const deleteModbus = gql`
   ${fragment.device}
 `
 
+const createModbusSource = gql`
+  mutation CreateModbusSource(
+    $deviceId: ID!
+    $tagId: ID!
+    $register: Int!
+    $registerType: ModbusRegisterType
+  ) {
+    createModbusSource(
+      deviceId: $deviceId
+      tagId: $tagId
+      register: $register
+      registerType: $registerType
+    ) {
+      ...ModbusSourceBasic
+    }
+  }
+  ${fragment.modbusSource}
+`
+
+const updateModbusSource = gql`
+  mutation UpdateModbusSource(
+    $tagId: ID!
+    $register: Int!
+    $registerType: ModbusRegisterType
+  ) {
+    updateModbusSource(
+      tagId: $tagId
+      register: $register
+      registerType: $registerType
+    ) {
+      ...ModbusSourceBasic
+    }
+  }
+  ${fragment.modbusSource}
+`
+
+const deleteModbusSource = gql`
+  mutation DeleteModbusSource($tagId: ID!) {
+    deleteModbusSource(tagId: $tagId) {
+      ...ModbusSourceBasic
+    }
+  }
+  ${fragment.modbusSource}
+`
+
 const createEthernetIP = gql`
   mutation CreateEthernetIP(
     $name: String!
@@ -228,6 +273,41 @@ const deleteEthernetIP = gql`
     }
   }
   ${fragment.device}
+`
+
+const createEthernetIPSource = gql`
+  mutation CreateEthernetIPSource(
+    $deviceId: ID!
+    $tagId: ID!
+    $tagname: String!
+  ) {
+    createEthernetIPSource(
+      deviceId: $deviceId
+      tagId: $tagId
+      tagname: $tagname
+    ) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
+`
+
+const updateEthernetIPSource = gql`
+  mutation UpdateEthernetIPSource($tagId: ID!, $tagname: String!) {
+    updateEthernetIPSource(tagId: $tagId, tagname: $tagname) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
+`
+
+const deleteEthernetIPSource = gql`
+  mutation DeleteEthernetIPSource($tagId: ID!) {
+    deleteEthernetIPSource(tagId: $tagId) {
+      ...EthernetIPSourceBasic
+    }
+  }
+  ${fragment.ethernetipSource}
 `
 
 const createMqtt = gql`
@@ -359,9 +439,15 @@ export default {
   createModbus,
   updateModbus,
   deleteModbus,
+  createModbusSource,
+  updateModbusSource,
+  deleteModbusSource,
   createEthernetIP,
   updateEthernetIP,
   deleteEthernetIP,
+  createEthernetIPSource,
+  updateEthernetIPSource,
+  deleteEthernetIPSource,
   createMqtt,
   updateMqtt,
   deleteMqtt,

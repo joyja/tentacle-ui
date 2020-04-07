@@ -1,7 +1,7 @@
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { mockScanClasses, mockTags } from '@/test/mockData'
+import { mockScanClasses, mockTags, mockDevices } from '@/test/mockData'
 import index from '@/pages/index.vue'
 
 // eliminate vuetify data-app warnings
@@ -58,15 +58,17 @@ describe('Index Page', () => {
   test('asyncData with client.query errors returns and error field', async () => {
     app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
     app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
+    app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
     const result = await wrapper.vm.$options.asyncData({ app })
     expect(result).toMatchInlineSnapshot(`
       Object {
+        "devices": undefined,
         "error": undefined,
         "scanClasses": undefined,
         "tags": undefined,
       }
     `)
-    expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(2)
+    expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(3)
   })
   test('asyncData calls client.query and passes appropriate data', async () => {
     app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
@@ -79,13 +81,19 @@ describe('Index Page', () => {
         scanClasses: mockScanClasses
       }
     })
+    app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
+      data: {
+        devices: mockDevices
+      }
+    })
     const result = await wrapper.vm.$options.asyncData({ app })
     expect(result).toEqual({
       tags: mockTags,
       scanClasses: mockScanClasses,
+      devices: mockDevices,
       error: null
     })
-    expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(2)
+    expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(3)
     wrapper.setData(result)
   })
   test(`Clicking the tag edit button sets the show dialog bit and the selected tag ID`, (done) => {
@@ -125,7 +133,7 @@ describe('Index Page', () => {
       }, 0)
     }, 0)
   })
-  test(`Clicking the scan class edit button sets the show dialog bit and the selected scan class ID`, (done) => {
+  test(`Clicking the scan class delete button sets the show dialog bit and the selected scan class ID`, (done) => {
     wrapper
       .find(`#deleteScanClass${mockScanClasses[1].id}Button`)
       .trigger('click')
@@ -133,6 +141,39 @@ describe('Index Page', () => {
       expect(wrapper.vm.scanClassSelected).toBe(mockScanClasses[1])
       expect(wrapper.vm.scanClassDeleteDialog).toBe(true)
       expect(wrapper.vm.scanClassEditDialog).toBe(false)
+      done()
+    }, 0)
+  })
+  test(`Clicking the tag source create button sets the show dialog bit and the selected selectedTag`, (done) => {
+    wrapper.find(`#createTagSource${mockTags[1].id}Button`).trigger('click')
+    setTimeout(() => {
+      expect(wrapper.vm.tagSelected).toBe(wrapper.vm.tagsWithCalcs[1])
+      expect(wrapper.vm.deviceSourceCreateDialog).toBe(true)
+      expect(wrapper.vm.deviceSourceDeleteDialog).toBe(false)
+      expect(wrapper.vm.deviceSourceEditDialog).toBe(false)
+      wrapper.setData({ deviceSourceCreateDialog: false })
+      done()
+    }, 0)
+  })
+  test(`Clicking the tag source edit button sets the show dialog bit and the selected selectedTag`, (done) => {
+    wrapper.find(`#editTagSource${mockTags[0].id}Button`).trigger('click')
+    setTimeout(() => {
+      expect(wrapper.vm.tagSelected).toBe(wrapper.vm.tagsWithCalcs[0])
+      expect(wrapper.vm.deviceSourceCreateDialog).toBe(false)
+      expect(wrapper.vm.deviceSourceDeleteDialog).toBe(false)
+      expect(wrapper.vm.deviceSourceEditDialog).toBe(true)
+      wrapper.setData({ deviceSourceEditDialog: false })
+      done()
+    }, 0)
+  })
+  test(`Clicking the tag source edit button sets the show dialog bit and the selected selectedTag`, (done) => {
+    wrapper.find(`#deleteTagSource${mockTags[0].id}Button`).trigger('click')
+    setTimeout(() => {
+      expect(wrapper.vm.tagSelected).toBe(wrapper.vm.tagsWithCalcs[0])
+      expect(wrapper.vm.deviceSourceCreateDialog).toBe(false)
+      expect(wrapper.vm.deviceSourceDeleteDialog).toBe(true)
+      expect(wrapper.vm.deviceSourceEditDialog).toBe(false)
+      wrapper.setData({ deviceSourceDeleteDialog: false })
       done()
     }, 0)
   })
@@ -144,6 +185,9 @@ describe('Index Page', () => {
     expect(wrapper.vm.tagCreateDialog).toBe(false)
     expect(wrapper.vm.tagEditDialog).toBe(false)
     expect(wrapper.vm.tagDeleteDialog).toBe(false)
+    expect(wrapper.vm.deviceSourceCreateDialog).toBe(false)
+    expect(wrapper.vm.deviceSourceDeleteDialog).toBe(false)
+    expect(wrapper.vm.deviceSourceEditDialog).toBe(false)
     expect(mocks.$apollo.queries.tags.refetch).toBeCalledTimes(1)
     expect(mocks.$apollo.queries.scanClasses.refetch).toBeCalledTimes(1)
   })
