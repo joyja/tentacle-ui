@@ -15,12 +15,15 @@
     "test:ci": "jest",
     "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
-    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "graphql-tag": "^2.10.3",
-    "nuxt": "^2.11.0"
+    "nuxt": "^2.11.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.8.7",
@@ -41,5 +44,6 @@
     "jest-transform-stub": "^2.0.0",
     "prettier": "^1.19.1",
     "vue-jest": "^4.0.0-0"
-  }
+  },
+  "snyk": true
 }
