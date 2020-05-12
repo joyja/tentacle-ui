@@ -151,13 +151,13 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'update' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -171,12 +171,12 @@ export default {
       deviceTypeItems: [
         {
           value: 'Modbus',
-          text: 'Modbus TCP'
+          text: 'Modbus TCP',
         },
         {
           value: 'EthernetIP',
-          text: 'Ethernet/IP'
-        }
+          text: 'Ethernet/IP',
+        },
       ],
       config: {},
       configRules: {},
@@ -189,12 +189,12 @@ export default {
           reverseWords: false,
           zeroBased: false,
           timeout: 1000,
-          retryRate: 5000
+          retryRate: 5000,
         },
         EthernetIP: {
           host: 'localhost',
-          slot: 0
-        }
+          slot: 0,
+        },
       },
       configRulesTemplates: {
         Modbus: {
@@ -204,13 +204,13 @@ export default {
           reverseWords: [],
           zeroBased: [],
           timeout: [(v) => !!v || 'timeout is required'],
-          retryRate: [(v) => !!v || 'retry rate is required']
+          retryRate: [(v) => !!v || 'retry rate is required'],
         },
         EthernetIP: {
           host: [(v) => !!v || 'host is required'],
-          slot: [(v) => v === 0 || !!v || 'slot is required']
-        }
-      }
+          slot: [(v) => v === 0 || !!v || 'slot is required'],
+        },
+      },
     }
   },
   computed: {
@@ -259,14 +259,14 @@ export default {
             reverseWords: this.config.reverseWords,
             zeroBased: this.config.zeroBased,
             timeout: this.config.timeout,
-            retryRate: this.config.retryRate
+            retryRate: this.config.retryRate,
           }
         } else {
           return {
             name: this.name,
             description: this.description,
             host: this.config.host,
-            slot: parseInt(this.config.slot)
+            slot: parseInt(this.config.slot),
           }
         }
       } else if (this.operation === `update`) {
@@ -281,7 +281,7 @@ export default {
             reverseWords: this.config.reverseWords,
             zeroBased: this.config.zeroBased,
             timeout: this.config.timeout,
-            retryRate: this.config.retryRate
+            retryRate: this.config.retryRate,
           }
         } else {
           return {
@@ -289,20 +289,20 @@ export default {
             name: this.name,
             description: this.description,
             host: this.config.host,
-            slot: parseInt(this.config.slot)
+            slot: parseInt(this.config.slot),
           }
         }
       } else {
         return {
-          id: this.initialData.id
+          id: this.initialData.id,
         }
       }
-    }
+    },
   },
   watch: {
     initialData() {
       this.initializeData()
-    }
+    },
   },
   mounted() {
     this.initializeData()
@@ -326,7 +326,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -334,7 +334,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

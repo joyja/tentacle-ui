@@ -8,13 +8,19 @@ import graphql from '~/graphql'
 
 Vue.use(Vuetify)
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 const mocks = {
   $apollo: {
-    mutate: jest.fn()
-  }
+    mutate: jest.fn(),
+  },
 }
 
 describe('Device Form:', () => {
@@ -23,8 +29,8 @@ describe('Device Form:', () => {
     localVue,
     mocks,
     propsData: {
-      initialData: mockDevices[0]
-    }
+      initialData: mockDevices[0],
+    },
   }
   beforeEach(() => {
     vuetify = new Vuetify()
@@ -32,26 +38,15 @@ describe('Device Form:', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  test('is a Vue instance', () => {
-    const wrapper = mount(Form, {
-      ...wrapperOptions,
-      vuetify,
-      propsData: {
-        ...wrapperOptions.propsData,
-        operation: 'create'
-      }
-    })
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
   test('Create prop uses create format and submit with modbus type runs createModbus.', async () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -90,11 +85,11 @@ describe('Device Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -127,11 +122,11 @@ describe('Device Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     await new Promise((resolve) =>
       setTimeout(() => {
@@ -150,12 +145,12 @@ describe('Device Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
         initialData: mockDevices[1],
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     await new Promise((resolve) =>
       setTimeout(() => {
@@ -173,34 +168,15 @@ describe('Device Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteModbus)
     await Vue.nextTick()
-    expect(wrapper.html()).toMatchInlineSnapshot(`
-      "<div class=\\"v-card v-sheet theme--light\\" style=\\"max-width: 500px; width: 100%;\\">
-        <form novalidate=\\"novalidate\\" class=\\"v-form m-3\\">
-          <div class=\\"v-card__text\\">
-            Are you sure you'd like to delete the scan class
-            <strong>aDevice</strong>?
-            <div role=\\"alert\\" class=\\"v-alert v-sheet theme--dark error\\" style=\\"width: 100%; display: none;\\">
-              <div class=\\"v-alert__wrapper\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-alert__icon mdi mdi-alert theme--dark\\"></i>
-                <div class=\\"v-alert__content\\"></div>
-              </div>
-            </div>
-          </div>
-          <div class=\\"v-card__actions\\"><button type=\\"submit\\" class=\\"v-btn v-btn--block v-btn--contained theme--light v-size--default primary\\"><span class=\\"v-btn__content\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-icon--left mdi mdi-delete theme--light\\"></i>
-              Delete
-              Device
-            </span></button></div>
-        </form>
-      </div>"
-    `)
     wrapper.find('button').trigger('click')
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
     wrapper.destroy()
@@ -210,35 +186,16 @@ describe('Device Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
         initialData: mockDevices[1],
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteEthernetIP)
     await Vue.nextTick()
-    expect(wrapper.html()).toMatchInlineSnapshot(`
-      "<div class=\\"v-card v-sheet theme--light\\" style=\\"max-width: 500px; width: 100%;\\">
-        <form novalidate=\\"novalidate\\" class=\\"v-form m-3\\">
-          <div class=\\"v-card__text\\">
-            Are you sure you'd like to delete the scan class
-            <strong>aDevice</strong>?
-            <div role=\\"alert\\" class=\\"v-alert v-sheet theme--dark error\\" style=\\"width: 100%; display: none;\\">
-              <div class=\\"v-alert__wrapper\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-alert__icon mdi mdi-alert theme--dark\\"></i>
-                <div class=\\"v-alert__content\\"></div>
-              </div>
-            </div>
-          </div>
-          <div class=\\"v-card__actions\\"><button type=\\"submit\\" class=\\"v-btn v-btn--block v-btn--contained theme--light v-size--default primary\\"><span class=\\"v-btn__content\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-icon--left mdi mdi-delete theme--light\\"></i>
-              Delete
-              Device
-            </span></button></div>
-        </form>
-      </div>"
-    `)
     wrapper.find('button').trigger('click')
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
     wrapper.destroy()
@@ -251,8 +208,8 @@ describe('Device Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteModbus)
@@ -271,11 +228,11 @@ describe('Device Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     wrapper.setProps({
-      initialData: mockDevices[1]
+      initialData: mockDevices[1],
     })
   })
 })

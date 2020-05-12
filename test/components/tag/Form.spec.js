@@ -11,10 +11,16 @@ Vue.use(Vuetify)
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 const mocks = {
   $apollo: {
-    mutate: jest.fn()
-  }
+    mutate: jest.fn(),
+  },
 }
 
 describe('Tag Form:', () => {
@@ -24,8 +30,8 @@ describe('Tag Form:', () => {
     mocks,
     propsData: {
       initialData: mockTags[0],
-      scanClasses: mockScanClasses
-    }
+      scanClasses: mockScanClasses,
+    },
   }
   beforeEach(() => {
     vuetify = new Vuetify()
@@ -33,26 +39,15 @@ describe('Tag Form:', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  test('is a Vue instance', () => {
-    const wrapper = mount(Form, {
-      ...wrapperOptions,
-      vuetify,
-      propsData: {
-        ...wrapperOptions.propsData,
-        operation: 'create'
-      }
-    })
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
   test('Create prop uses create format and submit runs create.', async () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -76,11 +71,11 @@ describe('Tag Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     await new Promise((resolve) =>
       setTimeout(() => {
@@ -98,34 +93,15 @@ describe('Tag Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteTag)
     await Vue.nextTick()
-    expect(wrapper.html()).toMatchInlineSnapshot(`
-      "<div class=\\"v-card v-sheet theme--light\\" style=\\"max-width: 500px; width: 100%;\\">
-        <form novalidate=\\"novalidate\\" class=\\"v-form m-3\\">
-          <div class=\\"v-card__text\\">
-            Are you sure you'd like to delete the tag
-            <strong>testTag</strong>?
-            <div role=\\"alert\\" class=\\"v-alert v-sheet theme--dark error\\" style=\\"width: 100%; display: none;\\">
-              <div class=\\"v-alert__wrapper\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-alert__icon mdi mdi-alert theme--dark\\"></i>
-                <div class=\\"v-alert__content\\"></div>
-              </div>
-            </div>
-          </div>
-          <div class=\\"v-card__actions\\"><button type=\\"submit\\" class=\\"v-btn v-btn--block v-btn--contained theme--light v-size--default primary\\"><span class=\\"v-btn__content\\"><i aria-hidden=\\"true\\" class=\\"v-icon notranslate v-icon--left mdi mdi-delete theme--light\\"></i>
-              Delete
-              Tag
-            </span></button></div>
-        </form>
-      </div>"
-    `)
     wrapper.find('button').trigger('click')
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
     wrapper.destroy()
@@ -138,8 +114,8 @@ describe('Tag Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteTag)
@@ -158,11 +134,11 @@ describe('Tag Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     wrapper.setProps({
-      initialData: mockTags[1]
+      initialData: mockTags[1],
     })
   })
 })

@@ -73,13 +73,13 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'update' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -90,7 +90,7 @@ export default {
       descriptionRules: [(v) => !!v || 'description is required'],
       rate: 1000,
       rateRules: [(v) => !!v || 'rate is required'],
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -122,26 +122,26 @@ export default {
         return {
           name: this.name,
           description: this.description,
-          rate: parseInt(this.rate)
+          rate: parseInt(this.rate),
         }
       } else if (this.operation === `update`) {
         return {
           id: this.initialData.id,
           name: this.name,
           description: this.description,
-          rate: parseInt(this.rate)
+          rate: parseInt(this.rate),
         }
       } else {
         return {
-          id: this.initialData.id
+          id: this.initialData.id,
         }
       }
-    }
+    },
   },
   watch: {
     initialData() {
       this.initializeData()
-    }
+    },
   },
   mounted() {
     this.initializeData()
@@ -159,7 +159,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -167,7 +167,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

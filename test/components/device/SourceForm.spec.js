@@ -11,10 +11,16 @@ Vue.use(Vuetify)
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 const mocks = {
   $apollo: {
-    mutate: jest.fn()
-  }
+    mutate: jest.fn(),
+  },
 }
 
 describe('Device Source Form:', () => {
@@ -25,8 +31,8 @@ describe('Device Source Form:', () => {
     propsData: {
       initialData: mockTags[1].source,
       tag: mockTags[1],
-      devices: mockDevices
-    }
+      devices: mockDevices,
+    },
   }
   beforeEach(() => {
     vuetify = new Vuetify()
@@ -34,26 +40,15 @@ describe('Device Source Form:', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  test('is a Vue instance', () => {
-    const wrapper = mount(Form, {
-      ...wrapperOptions,
-      vuetify,
-      propsData: {
-        ...wrapperOptions.propsData,
-        operation: 'create'
-      }
-    })
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
   test('Create prop uses create format and submit runs createModbusSource mutation', async () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -88,11 +83,11 @@ describe('Device Source Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -124,13 +119,13 @@ describe('Device Source Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
         tag: mockTags[0],
         initialData: null,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     wrapper.setProps({ initialData: mockTags[0].source })
     await Vue.nextTick()
@@ -150,13 +145,13 @@ describe('Device Source Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
         tag: mockTags[4],
         initialData: mockTags[4].source,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     await Vue.nextTick()
     expect(wrapper.vm.identifier).toBe('Update')
@@ -175,11 +170,11 @@ describe('Device Source Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteEthernetIPSource)
@@ -198,8 +193,8 @@ describe('Device Source Form:', () => {
         ...wrapperOptions.propsData,
         tag: mockTags[0],
         initialData: mockTags[0].source,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteModbusSource)

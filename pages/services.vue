@@ -160,9 +160,7 @@
                         </v-list-item-content>
                         <v-list-item-action>
                           <v-btn
-                            :id="
-                              `deletePrimaryHost${service.id}Host${host.id}Button`
-                            "
+                            :id="`deletePrimaryHost${service.id}Host${host.id}Button`"
                             icon
                             color="primary"
                             @click="
@@ -231,9 +229,7 @@
                         </v-list-item-content>
                         <v-list-item-action>
                           <v-btn
-                            :id="
-                              `deleteSource${service.id}Source${source.id}Button`
-                            "
+                            :id="`deleteSource${service.id}Source${source.id}Button`"
                             icon
                             color="primary"
                             @click.stop="
@@ -380,7 +376,7 @@ export default {
   components: {
     jarServiceForm: ServiceForm,
     jarMqttPrimaryHostForm: MqttPrimaryHostForm,
-    jarMqttSourceForm: MqttSourceForm
+    jarMqttSourceForm: MqttSourceForm,
   },
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
@@ -388,7 +384,7 @@ export default {
     let error = null
     const services = await client
       .query({
-        query: graphql.query.services
+        query: graphql.query.services,
       })
       .then(({ data: { services } }) => {
         return services
@@ -398,7 +394,7 @@ export default {
       })
     const devices = await client
       .query({
-        query: graphql.query.devices
+        query: graphql.query.devices,
       })
       .then(({ data: { devices } }) => {
         return devices
@@ -409,7 +405,7 @@ export default {
     return {
       services,
       devices,
-      error
+      error,
     }
   },
   data() {
@@ -426,7 +422,7 @@ export default {
       serviceMqttSourceCreateDialog: false,
       serviceMqttSourceDeleteDialog: false,
       mqttPrimaryHostSelected: null,
-      mqttSourceSelected: null
+      mqttSourceSelected: null,
     }
   },
   methods: {
@@ -483,21 +479,21 @@ export default {
       } else {
         return 'mdi-lan-disconnect'
       }
-    }
+    },
   },
   apollo: {
     services: {
       query: graphql.query.services,
       subscribeToMore: {
-        document: graphql.subscription.serviceUpdate
-      }
+        document: graphql.subscription.serviceUpdate,
+      },
     },
     devices: {
       query: graphql.query.devices,
       subscribeToMore: {
-        document: graphql.subscription.deviceUpdate
-      }
-    }
-  }
+        document: graphql.subscription.deviceUpdate,
+      },
+    },
+  },
 }
 </script>

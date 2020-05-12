@@ -26,7 +26,7 @@
           <v-card-text v-if="device.config" class="d-flex justify-center">
             <v-list
               v-if="device.config.__typename === 'Modbus'"
-              style="width: 400px"
+              style="width: 400px;"
               dense
               class="blue-grey lighten-5"
             >
@@ -122,7 +122,7 @@
             </v-list>
             <v-list
               v-if="device.config.__typename === 'EthernetIP'"
-              style="width: 400px"
+              style="width: 400px;"
               dense
               class="blue-grey lighten-5"
             >
@@ -209,7 +209,7 @@ export default {
   transition: 'slide-y-transition',
   middleware: 'auth',
   components: {
-    jarDeviceForm: DeviceForm
+    jarDeviceForm: DeviceForm,
   },
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
@@ -217,7 +217,7 @@ export default {
     let error = null
     const devices = await client
       .query({
-        query: graphql.query.devices
+        query: graphql.query.devices,
       })
       .then(({ data: { devices } }) => {
         return devices
@@ -227,7 +227,7 @@ export default {
       })
     return {
       devices,
-      error
+      error,
     }
   },
   data() {
@@ -237,7 +237,7 @@ export default {
       deviceSelected: null,
       deviceCreateDialog: false,
       deviceEditDialog: false,
-      deviceDeleteDialog: false
+      deviceDeleteDialog: false,
     }
   },
   methods: {
@@ -263,15 +263,15 @@ export default {
       } else {
         return 'mdi-lan-disconnect'
       }
-    }
+    },
   },
   apollo: {
     devices: {
       query: graphql.query.devices,
       subscribeToMore: {
-        document: graphql.subscription.deviceUpdate
-      }
-    }
-  }
+        document: graphql.subscription.deviceUpdate,
+      },
+    },
+  },
 }
 </script>

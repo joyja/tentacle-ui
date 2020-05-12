@@ -10,8 +10,8 @@
 import Login from '~/components/Login'
 export default {
   components: {
-    jarLogin: Login
+    jarLogin: Login,
   },
-  transition: 'slide-y-transition'
+  transition: 'slide-y-transition',
 }
 </script>

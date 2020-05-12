@@ -100,21 +100,21 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'delete' || value === 'update'
       },
-      default: 'create'
+      default: 'create',
     },
     tag: {
       type: Object,
-      required: true
+      required: true,
     },
     devices: {
       type: Array,
-      required: true
+      required: true,
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -126,26 +126,26 @@ export default {
       registerTypeItems: [
         {
           value: 'DISCRETE_INPUT',
-          text: 'Discrete Input'
+          text: 'Discrete Input',
         },
         {
           value: 'COIL',
-          text: 'Coil'
+          text: 'Coil',
         },
         {
           value: 'INPUT_REGISTER',
-          text: 'Input Register'
+          text: 'Input Register',
         },
         {
           value: 'HOLDING_REGISTER',
-          text: 'Holding Register'
-        }
+          text: 'Holding Register',
+        },
       ],
       registerTypeRules: [(v) => !!v || 'register type is required.'],
       tagname: null,
       tagnameRules: [(v) => !!v || 'tagname is required.'],
       error: null,
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -190,13 +190,13 @@ export default {
             tagId: this.tag.id,
             deviceId: this.deviceId,
             register: parseInt(this.register),
-            registerType: this.registerType
+            registerType: this.registerType,
           }
         } else {
           return {
             tagId: this.tag.id,
             deviceId: this.deviceId,
-            tagname: this.tagname
+            tagname: this.tagname,
           }
         }
       } else if (this.operation === `update`) {
@@ -204,25 +204,25 @@ export default {
           return {
             tagId: this.tag.id,
             register: parseInt(this.register),
-            registerType: this.registerType
+            registerType: this.registerType,
           }
         } else {
           return {
             tagId: this.tag.id,
-            tagname: this.tagname
+            tagname: this.tagname,
           }
         }
       } else {
         return {
-          tagId: this.tag.id
+          tagId: this.tag.id,
         }
       }
-    }
+    },
   },
   watch: {
     initialData() {
       this.initializeData()
-    }
+    },
   },
   mounted() {
     this.initializeData()
@@ -252,7 +252,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -260,7 +260,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

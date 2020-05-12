@@ -79,7 +79,7 @@
                             <v-list-item
                               v-if="
                                 tag.source &&
-                                  tag.source.__typename === 'ModbusSource'
+                                tag.source.__typename === 'ModbusSource'
                               "
                             >
                               <v-list-item-avatar>
@@ -149,7 +149,7 @@
                             <v-list-item
                               v-else-if="
                                 tag.source &&
-                                  tag.source.__typename === 'EthernetIPSource'
+                                tag.source.__typename === 'EthernetIPSource'
                               "
                             >
                               <v-list-item-avatar>
@@ -394,7 +394,7 @@ export default {
   components: {
     jarScanClassForm: ScanClassForm,
     jarTagForm: TagForm,
-    jarDeviceSourceForm: DeviceSourceForm
+    jarDeviceSourceForm: DeviceSourceForm,
   },
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
@@ -402,7 +402,7 @@ export default {
     let error = null
     const tags = await client
       .query({
-        query: graphql.query.tags
+        query: graphql.query.tags,
       })
       .then(({ data: { tags } }) => {
         return tags
@@ -412,7 +412,7 @@ export default {
       })
     const scanClasses = await client
       .query({
-        query: graphql.query.scanClasses
+        query: graphql.query.scanClasses,
       })
       .then(({ data: { scanClasses } }) => {
         return scanClasses
@@ -422,7 +422,7 @@ export default {
       })
     const devices = await client
       .query({
-        query: graphql.query.devices
+        query: graphql.query.devices,
       })
       .then(({ data: { devices } }) => {
         return devices
@@ -434,7 +434,7 @@ export default {
       tags,
       scanClasses,
       devices,
-      error
+      error,
     }
   },
   data() {
@@ -454,7 +454,7 @@ export default {
       deviceSourceCreateDialog: false,
       deviceSourceEditDialog: false,
       deviceSourceDeleteDialog: false,
-      tab: 0
+      tab: 0,
     }
   },
   computed: {
@@ -472,10 +472,10 @@ export default {
           ...tag,
           percentage,
           value:
-            tag.datatype === `BOOLEAN` ? tag.value + '' === 'true' : tag.value
+            tag.datatype === `BOOLEAN` ? tag.value + '' === 'true' : tag.value,
         }
       })
-    }
+    },
   },
   methods: {
     openScanClassUpdateDialog(scanClass) {
@@ -527,25 +527,25 @@ export default {
       } else {
         return 'mdi-lan-disconnect'
       }
-    }
+    },
   },
   apollo: {
     scanClasses: {
-      query: graphql.query.scanClasses
+      query: graphql.query.scanClasses,
     },
     tags: {
       query: graphql.query.tags,
       subscribeToMore: {
-        document: graphql.subscription.tagUpdate
-      }
+        document: graphql.subscription.tagUpdate,
+      },
     },
     devices: {
       query: graphql.query.devices,
       subscribeToMore: {
-        document: graphql.subscription.deviceUpdate
-      }
-    }
-  }
+        document: graphql.subscription.deviceUpdate,
+      },
+    },
+  },
 }
 </script>
 

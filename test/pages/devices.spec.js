@@ -9,6 +9,12 @@ const el = document.createElement('div')
 el.setAttribute('data-app', true)
 document.body.appendChild(el)
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 Vue.use(Vuetify)
 
 const localVue = createLocalVue()
@@ -16,19 +22,19 @@ const localVue = createLocalVue()
 const app = {
   apolloProvider: {
     defaultClient: {
-      query: jest.fn()
-    }
-  }
+      query: jest.fn(),
+    },
+  },
 }
 
 const mocks = {
   $apollo: {
     queries: {
       devices: {
-        refetch: jest.fn()
-      }
-    }
-  }
+        refetch: jest.fn(),
+      },
+    },
+  },
 }
 
 describe('Devices Page', () => {
@@ -48,9 +54,8 @@ describe('Devices Page', () => {
       localVue,
       vuetify,
       mocks,
-      attachToDocument: true
+      attachTo: getDiv(),
     })
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
   test('asyncData with client.query errors returns and error field', async () => {
     app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
@@ -66,13 +71,13 @@ describe('Devices Page', () => {
   test('asyncData calls client.query and passes appropriate data', async () => {
     app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
       data: {
-        devices: mockDevices
-      }
+        devices: mockDevices,
+      },
     })
     const result = await wrapper.vm.$options.asyncData({ app })
     expect(result).toEqual({
       devices: mockDevices,
-      error: null
+      error: null,
     })
     expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(1)
     wrapper.setData(result)

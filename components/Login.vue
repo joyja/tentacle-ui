@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-center" style="min-width: 400px">
+  <div class="d-flex flex-column align-center" style="min-width: 400px;">
     <v-card class="mb-3" width="100%">
       <v-form
         ref="loginForm"
@@ -57,7 +57,7 @@ export default {
       password: ``,
       passwordRules: [(v) => !!v || 'Password is required'],
       passwordShow: false,
-      error: null
+      error: null,
     }
   },
   methods: {
@@ -65,15 +65,15 @@ export default {
       try {
         const {
           data: {
-            login: { user, token }
-          }
+            login: { user, token },
+          },
         } = await this.$apollo
           .mutate({
             mutation: graphql.mutation.login,
             variables: {
               username: this.username,
-              password: this.password
-            }
+              password: this.password,
+            },
           })
           .catch((error) => {
             this.$apolloHelpers.onLogout()
@@ -87,7 +87,7 @@ export default {
         this.error = error
       }
     },
-    ...mapMutations(['setState'])
-  }
+    ...mapMutations(['setState']),
+  },
 }
 </script>
