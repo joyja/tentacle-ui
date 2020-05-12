@@ -7,5 +7,5 @@ export default {
   subscription,
   query,
   mutation,
-  fragment
+  fragment,
 }

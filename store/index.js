@@ -1,6 +1,6 @@
 import graphql from '~/graphql'
 export const state = () => ({
-  user: null
+  user: null,
 })
 
 export const mutations = {
@@ -14,7 +14,7 @@ export const mutations = {
     } else {
       throw new Error('You need to specify a state key to use setState.')
     }
-  }
+  },
 }
 
 export const actions = {
@@ -22,7 +22,7 @@ export const actions = {
     const client = app.apolloProvider.defaultClient
     const result = await client
       .query({
-        query: graphql.query.user
+        query: graphql.query.user,
       })
       .catch(() => {
         commit('setState', { key: 'user', value: null })
@@ -30,13 +30,13 @@ export const actions = {
     if (result && result.data) {
       commit('setState', {
         key: 'user',
-        value: result.data.user
+        value: result.data.user,
       })
     } else {
       commit('setState', {
         key: 'user',
-        value: null
+        value: null,
       })
     }
-  }
+  },
 }

@@ -53,21 +53,21 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     service: {
       type: Object,
-      required: true
+      required: true,
     },
     devices: {
       type: Array,
-      required: true
+      required: true,
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -77,10 +77,10 @@ export default {
         (v) =>
           !this.service.config.sources.some(
             (source) => source.device.id === v
-          ) || 'cannot add a device that has already been added.'
+          ) || 'cannot add a device that has already been added.',
       ],
       error: null,
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -107,15 +107,15 @@ export default {
       if (this.operation === `create`) {
         return {
           id: this.service.id,
-          deviceId: this.selectedDevice
+          deviceId: this.selectedDevice,
         }
       } else {
         return {
           id: this.service.id,
-          deviceId: this.initialData.device.id
+          deviceId: this.initialData.device.id,
         }
       }
-    }
+    },
   },
   methods: {
     async submit() {
@@ -123,7 +123,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -131,7 +131,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

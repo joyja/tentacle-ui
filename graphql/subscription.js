@@ -31,5 +31,5 @@ const serviceUpdate = gql`
 export default {
   tagUpdate,
   deviceUpdate,
-  serviceUpdate
+  serviceUpdate,
 }

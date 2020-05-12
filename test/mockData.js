@@ -3,20 +3,20 @@ export const mockScanClasses = [
     id: '1',
     name: 'default',
     description: 'The default scan class',
-    rate: 1000
+    rate: 1000,
   },
   {
     id: '2',
     name: 'slow',
     description: 'A slower scan class',
-    rate: 2000
+    rate: 2000,
   },
   {
     id: '3',
     name: 'fast',
     description: 'A faster scan class',
-    rate: 500
-  }
+    rate: 500,
+  },
 ]
 export const mockTags = [
   {
@@ -28,9 +28,9 @@ export const mockTags = [
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
-      username: 'admin'
+      username: 'admin',
     },
-    createdOn: new Date().toISOString()
+    createdOn: new Date().toISOString(),
   },
   {
     id: '2',
@@ -41,11 +41,11 @@ export const mockTags = [
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
-      username: 'admin'
+      username: 'admin',
     },
     createdOn: new Date().toISOString(),
     max: 300,
-    min: 100
+    min: 100,
   },
   {
     id: '3',
@@ -56,9 +56,9 @@ export const mockTags = [
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
-      username: 'admin'
+      username: 'admin',
     },
-    createdOn: new Date().toISOString()
+    createdOn: new Date().toISOString(),
   },
   {
     id: '4',
@@ -69,9 +69,9 @@ export const mockTags = [
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
-      username: 'admin'
+      username: 'admin',
     },
-    createdOn: new Date().toISOString()
+    createdOn: new Date().toISOString(),
   },
   {
     id: '5',
@@ -82,10 +82,10 @@ export const mockTags = [
     scanClass: mockScanClasses[0],
     createdBy: {
       id: '1',
-      username: 'admin'
+      username: 'admin',
     },
-    createdOn: new Date().toISOString()
-  }
+    createdOn: new Date().toISOString(),
+  },
 ]
 
 export const mockDevices = [
@@ -100,7 +100,7 @@ export const mockDevices = [
       device: {
         id: '1',
         name: 'aDevice',
-        description: 'A really great device'
+        description: 'A really great device',
       },
       id: '1',
       host: 'localhost',
@@ -114,13 +114,13 @@ export const mockDevices = [
           tag: mockTags[0],
           register: 4864,
           registerType: 'INPUT_REGISTER',
-          __typename: 'ModbusSource'
-        }
+          __typename: 'ModbusSource',
+        },
       ],
       status: 'connected',
-      zeroBased: true
+      zeroBased: true,
     },
-    __typename: 'Device'
+    __typename: 'Device',
   },
   {
     id: '2',
@@ -133,9 +133,9 @@ export const mockDevices = [
       id: '1',
       host: 'localhost',
       slot: '2',
-      status: 'connecting'
+      status: 'connecting',
     },
-    __typename: 'Device'
+    __typename: 'Device',
   },
   {
     id: '3',
@@ -148,7 +148,7 @@ export const mockDevices = [
       device: {
         id: '3',
         name: 'anotherDevice',
-        description: 'A really terrible device'
+        description: 'A really terrible device',
       },
       id: '1',
       host: 'localhost',
@@ -158,11 +158,11 @@ export const mockDevices = [
         {
           tag: mockTags[5],
           tagname: 'tagname',
-          __typename: 'EthernetIPSource'
-        }
-      ]
+          __typename: 'EthernetIPSource',
+        },
+      ],
     },
-    __typename: 'Device'
+    __typename: 'Device',
   },
   {
     id: '4',
@@ -175,7 +175,7 @@ export const mockDevices = [
       device: {
         id: '4',
         name: 'aDevice',
-        description: 'A really great device'
+        description: 'A really great device',
       },
       id: '1',
       host: 'localhost',
@@ -189,13 +189,13 @@ export const mockDevices = [
           tag: mockTags[2],
           register: 4865,
           registerType: 'INPUT_REGISTER',
-          __typename: 'ModbusSource'
-        }
+          __typename: 'ModbusSource',
+        },
       ],
       status: 'connecting',
-      zeroBased: true
+      zeroBased: true,
     },
-    __typename: 'Device'
+    __typename: 'Device',
   },
   {
     id: '5',
@@ -208,7 +208,7 @@ export const mockDevices = [
       device: {
         id: '5',
         name: 'aDevice',
-        description: 'A really great device'
+        description: 'A really great device',
       },
       id: '1',
       host: 'localhost',
@@ -222,38 +222,38 @@ export const mockDevices = [
           tag: mockTags[3],
           register: 4866,
           registerType: 'INPUT_REGISTER',
-          __typename: 'ModbusSource'
-        }
+          __typename: 'ModbusSource',
+        },
       ],
       status: 'Error: something really bad happened',
-      zeroBased: true
+      zeroBased: true,
     },
-    __typename: 'Device'
-  }
+    __typename: 'Device',
+  },
 ]
 
 mockTags[0].source = {
   modbus: mockDevices[0].config,
   register: 4864,
   registerType: 'INPUT_REGISTER',
-  __typename: 'ModbusSource'
+  __typename: 'ModbusSource',
 }
 mockTags[2].source = {
   modbus: mockDevices[3].config,
   register: 4865,
   registerType: 'INPUT_REGISTER',
-  __typename: 'ModbusSource'
+  __typename: 'ModbusSource',
 }
 mockTags[3].source = {
   modbus: mockDevices[4].config,
   register: 4866,
   registerType: 'INPUT_REGISTER',
-  __typename: 'ModbusSource'
+  __typename: 'ModbusSource',
 }
 mockTags[4].source = {
   ethernetip: mockDevices[2].config,
   tagname: 'aTagname',
-  __typename: 'EthernetIPSource'
+  __typename: 'EthernetIPSource',
 }
 
 export const mockServices = [
@@ -273,8 +273,8 @@ export const mockServices = [
         {
           id: '1',
           device: mockDevices[0],
-          __typename: 'MqttSource'
-        }
+          __typename: 'MqttSource',
+        },
       ],
       rate: 5000,
       encrypt: false,
@@ -285,12 +285,12 @@ export const mockServices = [
           name: 'ignition1',
           status: 'OFFLINE',
           recordCount: 64420,
-          __typename: 'MqttPrimaryHost'
-        }
+          __typename: 'MqttPrimaryHost',
+        },
       ],
-      __typename: 'Mqtt'
+      __typename: 'Mqtt',
     },
-    __typename: 'Service'
+    __typename: 'Service',
   },
   {
     id: '2',
@@ -308,8 +308,8 @@ export const mockServices = [
         {
           id: '1',
           device: mockDevices[1],
-          __typename: 'MqttSource'
-        }
+          __typename: 'MqttSource',
+        },
       ],
       rate: 5000,
       encrypt: false,
@@ -320,12 +320,12 @@ export const mockServices = [
           name: 'ignition1',
           status: 'ONLINE',
           recordCount: 120,
-          __typename: 'MqttPrimaryHost'
-        }
+          __typename: 'MqttPrimaryHost',
+        },
       ],
-      __typename: 'Mqtt'
+      __typename: 'Mqtt',
     },
-    __typename: 'Service'
+    __typename: 'Service',
   },
   {
     id: '3',
@@ -343,8 +343,8 @@ export const mockServices = [
         {
           id: '1',
           device: mockDevices[2],
-          __typename: 'MqttSource'
-        }
+          __typename: 'MqttSource',
+        },
       ],
       rate: 5000,
       encrypt: false,
@@ -355,18 +355,18 @@ export const mockServices = [
           name: 'ignition1',
           status: 'Error: Something really bad happened.',
           recordCount: 120,
-          __typename: 'MqttPrimaryHost'
-        }
+          __typename: 'MqttPrimaryHost',
+        },
       ],
-      __typename: 'Mqtt'
+      __typename: 'Mqtt',
     },
-    __typename: 'Service'
-  }
+    __typename: 'Service',
+  },
 ]
 
 export default {
   mockScanClasses,
   mockTags,
   mockDevices,
-  mockServices
+  mockServices,
 }

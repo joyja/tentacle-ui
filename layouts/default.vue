@@ -45,7 +45,7 @@
     <v-content>
       <nuxt />
     </v-content>
-    <v-footer style="z-index: 5" color="blue-grey darken-4" dark fixed app>
+    <v-footer style="z-index: 5;" color="blue-grey darken-4" dark fixed app>
       <span>&copy; JAR Automation {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -61,25 +61,25 @@ export default {
         {
           icon: 'mdi-tag-multiple-outline',
           title: 'Tags',
-          to: '/'
+          to: '/',
         },
         {
           icon: 'mdi-deskphone',
           title: 'Devices',
-          to: 'devices'
+          to: 'devices',
         },
         {
           icon: 'mdi-server-network',
           title: 'Services',
-          to: 'services'
-        }
+          to: 'services',
+        },
       ],
       right: true,
-      title: 'Tentacle'
+      title: 'Tentacle',
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
   },
   methods: {
     logout() {
@@ -87,7 +87,7 @@ export default {
       this.setState({ key: 'user', value: null })
       this.$router.push({ name: 'login' })
     },
-    ...mapMutations(['setState'])
-  }
+    ...mapMutations(['setState']),
+  },
 }
 </script>

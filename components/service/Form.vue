@@ -254,17 +254,17 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'update' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
+      default: null,
     },
     devices: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -284,7 +284,7 @@ export default {
         encrypt: true,
         recordLimit: 250,
         primaryHosts: [],
-        devices: []
+        devices: [],
       },
       configRules: {
         host: [(v) => !!v || 'host is required'],
@@ -300,16 +300,16 @@ export default {
           (v) => !!v || 'invalid primary host name.',
           (v) =>
             this.config.primaryHosts.filter((host) => v === host).length < 2 ||
-            "can't have more than one primary host with the same name."
+            "can't have more than one primary host with the same name.",
         ],
         device: [
           (v) => !!v || 'a device must be selected.',
           (v) =>
             this.config.devices.filter((device) => v === device).length < 2 ||
-            "can't have device assigned more than once."
-        ]
+            "can't have device assigned more than once.",
+        ],
       },
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -351,7 +351,7 @@ export default {
           encrypt: this.config.encrypt,
           recordLimit: parseInt(this.config.recordLimit),
           primaryHosts: this.config.primaryHosts,
-          devices: this.config.devices
+          devices: this.config.devices,
         }
       } else if (this.operation === `update`) {
         return {
@@ -366,19 +366,19 @@ export default {
           password: this.config.password,
           rate: parseInt(this.config.rate),
           encrypt: this.config.encrypt,
-          recordLimit: parseInt(this.config.recordLimit)
+          recordLimit: parseInt(this.config.recordLimit),
         }
       } else {
         return {
-          id: this.initialData.id
+          id: this.initialData.id,
         }
       }
-    }
+    },
   },
   watch: {
     initialData() {
       this.initializeData()
-    }
+    },
   },
   mounted() {
     this.initializeData()
@@ -403,7 +403,7 @@ export default {
           ),
           devices: this.initialData.config.sources.map(
             (source) => source.device.id
-          )
+          ),
         }
       }
     },
@@ -412,7 +412,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -420,7 +420,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

@@ -454,5 +454,5 @@ export default {
   addMqttSource,
   deleteMqttSource,
   addMqttPrimaryHost,
-  deleteMqttPrimaryHost
+  deleteMqttPrimaryHost,
 }

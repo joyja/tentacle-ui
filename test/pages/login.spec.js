@@ -15,8 +15,8 @@ describe('Login Page', () => {
   test('is a Vue instance', () => {
     const wrapper = mount(login, {
       localVue,
-      vuetify
+      vuetify,
     })
-    expect(wrapper.isVueInstance()).toBeTruthy()
+    expect(wrapper).toBeTruthy()
   })
 })

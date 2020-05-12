@@ -13,25 +13,31 @@ Vue.use(Vuetify)
 
 const localVue = createLocalVue()
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 const app = {
   apolloProvider: {
     defaultClient: {
-      query: jest.fn()
-    }
-  }
+      query: jest.fn(),
+    },
+  },
 }
 
 const mocks = {
   $apollo: {
     queries: {
       tags: {
-        refetch: jest.fn()
+        refetch: jest.fn(),
       },
       scanClasses: {
-        refetch: jest.fn()
-      }
-    }
-  }
+        refetch: jest.fn(),
+      },
+    },
+  },
 }
 
 describe('Index Page', () => {
@@ -51,9 +57,8 @@ describe('Index Page', () => {
       localVue,
       vuetify,
       mocks,
-      attachToDocument: true
+      attachTo: getDiv(),
     })
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
   test('asyncData with client.query errors returns and error field', async () => {
     app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
@@ -73,25 +78,25 @@ describe('Index Page', () => {
   test('asyncData calls client.query and passes appropriate data', async () => {
     app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
       data: {
-        tags: mockTags
-      }
+        tags: mockTags,
+      },
     })
     app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
       data: {
-        scanClasses: mockScanClasses
-      }
+        scanClasses: mockScanClasses,
+      },
     })
     app.apolloProvider.defaultClient.query.mockResolvedValueOnce({
       data: {
-        devices: mockDevices
-      }
+        devices: mockDevices,
+      },
     })
     const result = await wrapper.vm.$options.asyncData({ app })
     expect(result).toEqual({
       tags: mockTags,
       scanClasses: mockScanClasses,
       devices: mockDevices,
-      error: null
+      error: null,
     })
     expect(app.apolloProvider.defaultClient.query).toBeCalledTimes(3)
     wrapper.setData(result)

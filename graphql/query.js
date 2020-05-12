@@ -51,5 +51,5 @@ export default {
   tags,
   scanClasses,
   devices,
-  services
+  services,
 }

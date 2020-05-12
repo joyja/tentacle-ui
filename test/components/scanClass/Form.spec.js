@@ -8,13 +8,19 @@ import graphql from '~/graphql'
 
 Vue.use(Vuetify)
 
+const getDiv = function () {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  return div
+}
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 const mocks = {
   $apollo: {
-    mutate: jest.fn()
-  }
+    mutate: jest.fn(),
+  },
 }
 
 describe('Scan Class Form:', () => {
@@ -23,8 +29,8 @@ describe('Scan Class Form:', () => {
     localVue,
     mocks,
     propsData: {
-      initialData: mockScanClasses[0]
-    }
+      initialData: mockScanClasses[0],
+    },
   }
   beforeEach(() => {
     vuetify = new Vuetify()
@@ -32,26 +38,15 @@ describe('Scan Class Form:', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  test('is a Vue instance', () => {
-    const wrapper = mount(Form, {
-      ...wrapperOptions,
-      vuetify,
-      propsData: {
-        ...wrapperOptions.propsData,
-        operation: 'create'
-      }
-    })
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
   test('Create prop uses create format and submit runs create.', async () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
@@ -75,11 +70,11 @@ describe('Scan Class Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     await new Promise((resolve) =>
       setTimeout(() => {
@@ -97,11 +92,11 @@ describe('Scan Class Form:', () => {
     const wrapper = mount(Form, {
       ...wrapperOptions,
       vuetify,
-      attachToDocument: true,
+      attachTo: getDiv(),
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteScanClass)
@@ -118,8 +113,8 @@ describe('Scan Class Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'delete'
-      }
+        operation: 'delete',
+      },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteScanClass)
@@ -138,11 +133,11 @@ describe('Scan Class Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'update'
-      }
+        operation: 'update',
+      },
     })
     wrapper.setProps({
-      initialData: mockScanClasses[1]
+      initialData: mockScanClasses[1],
     })
   })
   test('Set rate to null makes form invalid.', async () => {
@@ -151,8 +146,8 @@ describe('Scan Class Form:', () => {
       vuetify,
       propsData: {
         ...wrapperOptions.propsData,
-        operation: 'create'
-      }
+        operation: 'create',
+      },
     })
     wrapper.find('#scanClassCreaterate').setValue(null)
     await new Promise((resolve) =>

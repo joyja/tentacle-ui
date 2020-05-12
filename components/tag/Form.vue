@@ -86,17 +86,17 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'update' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
+      default: null,
     },
     scanClasses: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -112,7 +112,7 @@ export default {
       datatypeItems: ['BOOLEAN', 'INT16', 'INT32', 'FLOAT'],
       scanClass: null,
       scanClassRules: [(v) => !!v || 'Scan class is required'],
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -120,7 +120,7 @@ export default {
       return this.scanClasses.map((scanClass) => {
         return {
           value: scanClass.id,
-          text: `${scanClass.name} (${scanClass.rate} ms)`
+          text: `${scanClass.name} (${scanClass.rate} ms)`,
         }
       })
     },
@@ -154,7 +154,7 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
-          value: this.value.toString()
+          value: this.value.toString(),
         }
       } else if (this.operation === `update`) {
         return {
@@ -163,19 +163,19 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
-          value: this.value.toString()
+          value: this.value.toString(),
         }
       } else {
         return {
-          id: this.initialData.id
+          id: this.initialData.id,
         }
       }
-    }
+    },
   },
   watch: {
     initialData() {
       this.initializeData()
-    }
+    },
   },
   mounted() {
     this.initializeData()
@@ -195,7 +195,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -203,7 +203,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>

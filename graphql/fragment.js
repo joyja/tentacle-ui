@@ -206,5 +206,5 @@ export default {
   ethernetip,
   device,
   service,
-  mqttPrimaryHost
+  mqttPrimaryHost,
 }

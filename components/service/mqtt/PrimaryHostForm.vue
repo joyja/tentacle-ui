@@ -49,24 +49,24 @@ export default {
       validator: (value) => {
         return value === 'create' || value === 'delete'
       },
-      default: 'create'
+      default: 'create',
     },
     service: {
       type: Object,
-      required: true
+      required: true,
     },
     initialData: {
       type: Object,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
       error: null,
       name: ``,
       nameRules: [(v) => !!v || 'name is required'],
-      valid: false
+      valid: false,
     }
   },
   computed: {
@@ -93,15 +93,15 @@ export default {
       if (this.operation === `create`) {
         return {
           id: this.service.id,
-          name: this.name
+          name: this.name,
         }
       } else {
         return {
           id: this.service.id,
-          name: this.initialData.name
+          name: this.initialData.name,
         }
       }
-    }
+    },
   },
   methods: {
     async submit() {
@@ -109,7 +109,7 @@ export default {
       await this.$apollo
         .mutate({
           mutation: this.mutation,
-          variables: this.mutationVariables
+          variables: this.mutationVariables,
         })
         .catch((error) => {
           this.error = error
@@ -117,7 +117,7 @@ export default {
       if (!this.error) {
         this.$emit('refetch')
       }
-    }
-  }
+    },
+  },
 }
 </script>
