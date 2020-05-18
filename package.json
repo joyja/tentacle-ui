@@ -17,6 +17,7 @@
     "get-schema": "node ./getSchema.js",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
+  "main": "server/index.js",
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "graphql-tag": "^2.10.3",
