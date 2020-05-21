@@ -14,7 +14,7 @@
       </v-tab>
       <v-tabs-items v-model="tab" class="transparent">
         <v-tab-item>
-          <v-row>
+          <v-row class="mb-3">
             <v-col v-for="tag in tagsWithCalcs" :key="tag.id">
               <v-card class="d-flex flex-column" height="100%">
                 <v-card-title headline>
