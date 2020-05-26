@@ -19,7 +19,7 @@
   },
   "bin": {
     "tentacle-ui-build": "./scripts/build.js",
-    "tentacle-ui": "./scripts/run.js"
+    "tentacle-ui": "./scripts/start.js"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
