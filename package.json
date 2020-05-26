@@ -24,7 +24,8 @@
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "graphql-tag": "^2.10.3",
-    "nuxt": "^2.12.2"
+    "nuxt": "^2.12.2",
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.6",
