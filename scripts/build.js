@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { loadNuxt, build } = require('nuxt')
 
 const main = async () => {
