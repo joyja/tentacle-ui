@@ -37,6 +37,35 @@ const devices = gql`
   ${fragment.device}
 `
 
+const tagBrowse = gql`
+  query TagBrowse($id: ID!) {
+    device(id: $id) {
+      ...DeviceBasic
+      config {
+        ... on EthernetIP {
+          tags {
+            id
+            name
+            type {
+              typeName
+            }
+            template {
+              members {
+                name
+                type {
+                  code
+                  string
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ${fragment.device}
+`
+
 const services = gql`
   query Services {
     services {
@@ -51,5 +80,6 @@ export default {
   tags,
   scanClasses,
   devices,
+  tagBrowse,
   services,
 }

@@ -172,6 +172,16 @@
                 ><v-icon left>mdi-delete</v-icon>delete</v-btn
               >
             </v-col>
+            <v-col v-if="device.config.__typename === 'EthernetIP'">
+              <v-dialog v-model="tagBrowseDialog" scrollable max-width="500px">
+                <template v-slot:activator="{ on }">
+                  <v-btn block outlined color="secondary" v-on="on"
+                    ><v-icon left>mdi-eye</v-icon>Browse</v-btn
+                  >
+                </template>
+                <jar-tag-browser :device-id="device.id" />
+              </v-dialog>
+            </v-col>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -204,12 +214,14 @@
 <script>
 import graphql from '~/graphql'
 import DeviceForm from '~/components/device/Form.vue'
+import TagBrowser from '~/components/device/ethernetip/TagBrowser.vue'
 
 export default {
   transition: 'slide-y-transition',
   middleware: 'auth',
   components: {
     jarDeviceForm: DeviceForm,
+    jarTagBrowser: TagBrowser,
   },
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
@@ -238,6 +250,7 @@ export default {
       deviceCreateDialog: false,
       deviceEditDialog: false,
       deviceDeleteDialog: false,
+      tagBrowseDialog: false,
     }
   },
   methods: {
