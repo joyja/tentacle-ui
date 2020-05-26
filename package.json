@@ -1,5 +1,5 @@
 {
-  "name": "tentacle-ui",
+  "name": "tentacle-edge-ui",
   "version": "0.0.0",
   "description": "User interface for the tentacle industrial automation gateway",
   "author": "James A. Joy",
@@ -16,6 +16,10 @@
     "test": "jest --watchAll",
     "get-schema": "node ./getSchema.js",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "bin": {
+    "tentacle-ui-build": "nuxt build",
+    "tentacle-ui": "nuxt start"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
