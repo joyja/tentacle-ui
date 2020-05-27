@@ -206,8 +206,6 @@ import graphql from '~/graphql'
 import DeviceForm from '~/components/device/Form.vue'
 
 export default {
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   components: {
     jarDeviceForm: DeviceForm,
   },
@@ -265,6 +263,13 @@ export default {
       }
     },
   },
+  head() {
+    return {
+      title: 'Devices',
+    }
+  },
+  transition: 'slide-y-transition',
+  middleware: 'auth',
   apollo: {
     devices: {
       query: graphql.query.devices,
