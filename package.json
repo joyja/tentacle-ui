@@ -1,6 +1,6 @@
 {
-  "name": "tentacle-ui",
-  "version": "0.0.0",
+  "name": "tentacle-edge-ui",
+  "version": "0.0.8",
   "description": "User interface for the tentacle industrial automation gateway",
   "author": "James A. Joy",
   "license": "GPL-3.0",
@@ -17,23 +17,28 @@
     "get-schema": "node ./getSchema.js",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
-  "main": "server/index.js",
+  "bin": {
+    "tentacle-ui-build": "./scripts/build.js",
+    "tentacle-ui": "./scripts/start.js"
+  },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "core-js": "^3.6.5",
     "graphql-tag": "^2.10.3",
-    "nuxt": "^2.12.2"
+    "nuxt": "^2.12.2",
+    "nuxt-start": "^2.12.2",
+    "vuetify": "^2.2.29"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.6",
     "@mdi/font": "^5.1.45",
     "@nuxtjs/eslint-config": "^2.0.2",
     "@nuxtjs/eslint-module": "^2.0.0",
-    "@nuxtjs/vuetify": "^1.11.2",
     "@vue/test-utils": "^1.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.5.1",
-    "core-js": "^3.6.5",
     "coveralls": "^3.1.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
