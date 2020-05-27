@@ -49,13 +49,14 @@ describe('Services Page', () => {
   afterAll(() => {
     wrapper.destroy()
   })
-  test('is a Vue instance', () => {
+  test('Title is correct.', () => {
     wrapper = mount(services, {
       localVue,
       vuetify,
       mocks,
       attachTo: getDiv(),
     })
+    expect(wrapper.vm.$options.head().title).toBe('Services')
   })
   test('asyncData with client.query errors returns and error field', async () => {
     app.apolloProvider.defaultClient.query.mockRejectedValueOnce()
