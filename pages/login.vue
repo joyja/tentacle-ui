@@ -12,6 +12,11 @@ export default {
   components: {
     jarLogin: Login,
   },
+  head() {
+    return {
+      title: 'Login',
+    }
+  },
   transition: 'slide-y-transition',
 }
 </script>

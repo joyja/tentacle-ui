@@ -371,8 +371,6 @@ import MqttPrimaryHostForm from '~/components/service/mqtt/PrimaryHostForm.vue'
 import MqttSourceForm from '~/components/service/mqtt/SourceForm.vue'
 
 export default {
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   components: {
     jarServiceForm: ServiceForm,
     jarMqttPrimaryHostForm: MqttPrimaryHostForm,
@@ -481,6 +479,13 @@ export default {
       }
     },
   },
+  head() {
+    return {
+      title: 'Services',
+    }
+  },
+  transition: 'slide-y-transition',
+  middleware: 'auth',
   apollo: {
     services: {
       query: graphql.query.services,
