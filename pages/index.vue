@@ -389,8 +389,6 @@ import TagForm from '~/components/tag/Form.vue'
 import DeviceSourceForm from '~/components/device/SourceForm.vue'
 
 export default {
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   components: {
     jarScanClassForm: ScanClassForm,
     jarTagForm: TagForm,
@@ -529,6 +527,13 @@ export default {
       }
     },
   },
+  head() {
+    return {
+      title: 'Tags',
+    }
+  },
+  transition: 'slide-y-transition',
+  middleware: 'auth',
   apollo: {
     scanClasses: {
       query: graphql.query.scanClasses,

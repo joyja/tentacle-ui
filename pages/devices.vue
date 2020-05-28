@@ -217,8 +217,6 @@ import DeviceForm from '~/components/device/Form.vue'
 import TagBrowser from '~/components/device/ethernetip/TagBrowser.vue'
 
 export default {
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   components: {
     jarDeviceForm: DeviceForm,
     jarTagBrowser: TagBrowser,
@@ -278,6 +276,13 @@ export default {
       }
     },
   },
+  head() {
+    return {
+      title: 'Devices',
+    }
+  },
+  transition: 'slide-y-transition',
+  middleware: 'auth',
   apollo: {
     devices: {
       query: graphql.query.devices,

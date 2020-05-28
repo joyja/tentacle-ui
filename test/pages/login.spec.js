@@ -12,11 +12,11 @@ describe('Login Page', () => {
   beforeEach(() => {
     vuetify = new Vuetify()
   })
-  test('is a Vue instance', () => {
+  test('Title is correct.', () => {
     const wrapper = mount(login, {
       localVue,
       vuetify,
     })
-    expect(wrapper).toBeTruthy()
+    expect(wrapper.vm.$options.head().title).toBe('Login')
   })
 })
