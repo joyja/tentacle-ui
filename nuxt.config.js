@@ -11,9 +11,14 @@ export default {
     },
   },
   env: {
-    tentacleSecure: process.env.TENTACLE_SECURE || false,
-    tentacleHost: process.env.TENTACLE_HOST,
-    tentaclePort: process.env.TENTACLE_PORT || 4000,
+    tentacleServerSecure: process.env.TENTACLE_SERVER_SECURE || false,
+    tentacleServerHost: process.env.TENTACLE_SERVER_HOST,
+    tentacleServerPort: process.env.TENTACLE_SERVER_PORT || 4000,
+    tentacleServerUrl: process.env.TENTACLE_SERVER_URL,
+    tentacleClientSecure: process.env.TENTACLE_CLIENT_SECURE || false,
+    tentacleClientHost: process.env.TENTACLE_CLIENT_HOST,
+    tentacleClientPort: process.env.TENTACLE_CLIENT_PORT || 4000,
+    tentacleClientUrl: process.env.TENTACLE_CLIENT_URL,
   },
   mode: 'universal',
   /*
