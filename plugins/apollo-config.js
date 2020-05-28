@@ -14,7 +14,7 @@ export default function (context) {
       httpPrefix: process.env.tentacleClientSecure ? 'https' : 'http',
       wsPrefix: process.env.tentacleClientSecure ? 'wss' : 'ws',
       hostname: process.env.tentacleClientHost || window.location.hostname,
-      port: process.env.tentacleClientPort || '80',
+      port: process.env.tentacleClientPort || window.location.port,
       url: process.env.tentacleClientUrl || '/api/',
     }
   } else {
@@ -26,9 +26,10 @@ export default function (context) {
       url: process.env.tentacleServerUrl || '/',
     }
   }
+  const portString = config.port ? `:${config.port}` : ``
   return {
-    httpEndpoint: `${config.httpPrefix}://${config.hostname}:${config.port}/${config.url}`,
-    wsEndpoint: `${config.wsPrefix}://${config.hostname}:${config.port}/${config.url}`,
+    httpEndpoint: `${config.httpPrefix}://${config.hostname}${portString}${config.url}`,
+    wsEndpoint: `${config.wsPrefix}://${config.hostname}${portString}${config.url}`,
     cache: new InMemoryCache({ fragmentMatcher }),
   }
 }
