@@ -6,18 +6,26 @@ import fragmentTypes from '~/fragmentTypes.json'
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: fragmentTypes,
 })
+
 export default function (context) {
-  const defaultHostname = process.client
-    ? window.location.hostname
-    : 'localhost'
-  const httpPrefix = process.env.tentacleSecure ? 'https' : 'http'
-  const wsPrefix = process.env.tentacleSecure ? 'wss' : 'ws'
-  const hostname = process.env.tentacleHost || defaultHostname
-  const port = process.env.tentaclePort
-  const url = process.env.tentacleUrl
+  const clientConfig = {
+    httpPrefix: process.env.tentacleClientSecure ? 'https' : 'http',
+    wsPrefix: process.env.tentacleClientSecure ? 'wss' : 'ws',
+    hostname: process.env.tentacleClientHost || window.location.hostname,
+    port: process.env.tentacleClientPort || '80',
+    url: process.env.tentacleClientUrl || '/api/',
+  }
+  const serverConfig = {
+    httpPrefix: process.env.tentacleServerSecure ? 'https' : 'http',
+    wsPrefix: process.env.tentacleServerSecure ? 'wss' : 'ws',
+    hostname: process.env.tentacleServerHost || 'localhost',
+    port: process.env.tentacleServerPort || 4000,
+    url: process.env.tentacleServerUrl || '/',
+  }
+  const config = process.client ? clientConfig : serverConfig
   return {
-    httpEndpoint: `${httpPrefix}://${hostname}:${port}/${url}`,
-    wsEndpoint: `${wsPrefix}://${hostname}:${port}/${url}`,
+    httpEndpoint: `${config.httpPrefix}://${config.hostname}:${config.port}/${config.url}`,
+    wsEndpoint: `${config.wsPrefix}://${config.hostname}:${config.port}/${config.url}`,
     cache: new InMemoryCache({ fragmentMatcher }),
   }
 }
