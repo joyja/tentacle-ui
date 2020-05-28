@@ -14,9 +14,10 @@ export default function (context) {
   const wsPrefix = process.env.tentacleSecure ? 'wss' : 'ws'
   const hostname = process.env.tentacleHost || defaultHostname
   const port = process.env.tentaclePort
+  const url = process.env.tentacleUrl
   return {
-    httpEndpoint: `${httpPrefix}://${hostname}:${port}/`,
-    wsEndpoint: `${wsPrefix}://${hostname}:${port}/`,
+    httpEndpoint: `${httpPrefix}://${hostname}:${port}/${url}`,
+    wsEndpoint: `${wsPrefix}://${hostname}:${port}/${url}`,
     cache: new InMemoryCache({ fragmentMatcher }),
   }
 }
