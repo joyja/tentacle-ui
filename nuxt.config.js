@@ -14,6 +14,7 @@ export default {
     tentacleSecure: process.env.TENTACLE_SECURE || false,
     tentacleHost: process.env.TENTACLE_HOST,
     tentaclePort: process.env.TENTACLE_PORT || 4000,
+    tentacleUrl: process.env.TENTACLE_URL,
   },
   mode: 'universal',
   /*
