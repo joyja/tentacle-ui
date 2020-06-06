@@ -17,6 +17,8 @@ export default function (context) {
       port: process.env.tentacleClientPort || window.location.port,
       url: process.env.tentacleClientUrl || '/api/',
     }
+    console.log(process.env.tentacleClientPort)
+    console.log(window.location.port)
   } else {
     config = {
       httpPrefix: process.env.tentacleServerSecure ? 'https' : 'http',
