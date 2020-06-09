@@ -1,12 +1,12 @@
 const fs = require('fs')
 const fetch = require('node-fetch')
 
-const prefix = process.env.TENTACLE_SECURE ? 'https' : 'http'
-const hostname = process.env.TENTACLE_HOST || 'localhost'
-const port = process.env.TENTACLE_PORT || 4000
+const prefix = process.env.TENTACLE_SERVER_SECURE ? 'https' : 'http'
+const hostname = process.env.TENTACLE_SERVER_HOST || 'localhost'
+const port = process.env.TENTACLE_SERVER_PORT || 4000
 const url = `${prefix}://${hostname}:${port}/`
 
-const getSchema = function() {
+const getSchema = function () {
   return fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -24,8 +24,8 @@ const getSchema = function() {
             }
           }
         }
-      `
-    })
+      `,
+    }),
   })
     .then((result) => result.json())
     .then((result) => {
