@@ -2,13 +2,12 @@ import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory'
-import getFragmentTypes from '../getFragmentTypes'
+import fragmentTypes from '~/fragmentTypes.json'
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData: fragmentTypes,
+})
 
-export default async function (context) {
-  const fragmentTypes = await getFragmentTypes()
-  const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData: fragmentTypes,
-  })
+export default function (context) {
   let config = {}
   if (process.client) {
     config = {
