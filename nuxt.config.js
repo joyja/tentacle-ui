@@ -1,15 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
-import getFragmentTypes from './getFragmentTypes'
 
 export default {
-  hooks: {
-    build: {
-      analyze: true,
-      before(builder) {
-        return getFragmentTypes()
-      },
-    },
-  },
+  // hooks: {
+  //   build: {
+  //     analyze: true,
+  //     before(builder) {
+  //       return getFragmentTypes()
+  //     },
+  //   },
+  // },
   env: {
     tentacleServerSecure: process.env.TENTACLE_SERVER_SECURE || false,
     tentacleServerHost: process.env.TENTACLE_SERVER_HOST,

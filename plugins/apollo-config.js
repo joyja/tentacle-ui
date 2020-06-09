@@ -2,12 +2,13 @@ import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory'
-import fragmentTypes from '~/fragmentTypes.json'
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData: fragmentTypes,
-})
+import getFragmentTypes from '../getFragmentTypes'
 
-export default function (context) {
+export default async function (context) {
+  const fragmentTypes = await getFragmentTypes()
+  const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData: fragmentTypes,
+  })
   let config = {}
   if (process.client) {
     config = {
@@ -17,8 +18,6 @@ export default function (context) {
       port: process.env.tentacleClientPort || window.location.port,
       url: process.env.tentacleClientUrl || '/api/',
     }
-    console.log(process.env.tentacleClientPort)
-    console.log(window.location.port)
   } else {
     config = {
       httpPrefix: process.env.tentacleServerSecure ? 'https' : 'http',
