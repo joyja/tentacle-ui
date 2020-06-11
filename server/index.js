@@ -8,7 +8,7 @@ const build = async (ifNotExists = false) => {
   if (ifNotExists) {
     skip = fs.existsSync(path.join(__dirname, '../', '.nuxt'))
   }
-  if (skip) {
+  if (!skip) {
     const nuxt = await loadNuxt({
       rootDir: path.join(__dirname, '../'),
       for: 'build',
