@@ -13,4 +13,4 @@ RUN npm install
 EXPOSE 3000
 
 # Show current folder structure in logs
-CMD npm2-runtime start ecosystem.config.js
+CMD pm2-runtime start ecosystem.config.js
