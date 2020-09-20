@@ -28,6 +28,30 @@
           label="Value"
           :rules="valueRules"
         ></v-text-field>
+        <v-text-field
+          :id="`tag${identifier}min`"
+          v-model="min"
+          type="number"
+          name="min"
+          label="Minimum"
+          :rules="minRules"
+        ></v-text-field>
+        <v-text-field
+          :id="`tag${identifier}max`"
+          v-model="max"
+          type="number"
+          name="max"
+          label="Maximum"
+          :rules="maxRules"
+        ></v-text-field>
+        <v-text-field
+          :id="`tag${identifier}deadband`"
+          v-model="deadband"
+          type="number"
+          name="deadband"
+          label="Deadband"
+          :rules="deadbandRules"
+        ></v-text-field>
         <v-select
           :id="`tag${identifier}datatype`"
           v-model="datatype"
@@ -110,6 +134,12 @@ export default {
       datatype: ``,
       datatypeRules: [(v) => !!v || 'datatype is required'],
       datatypeItems: ['BOOLEAN', 'INT16', 'INT32', 'FLOAT'],
+      min: 0,
+      minRules: [(v) => !!v || 'min is required'],
+      max: 100,
+      maxRules: [(v) => !!v || 'max is required'],
+      deadband: 0,
+      deadbandRules: [(v) => !!v || 'deadband is required'],
       scanClass: null,
       scanClassRules: [(v) => !!v || 'Scan class is required'],
       valid: false,
@@ -154,6 +184,9 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
+          max: parseFloat(this.max),
+          min: parseFloat(this.min),
+          deadband: parseFloat(this.deadband),
           value: this.value.toString(),
         }
       } else if (this.operation === `update`) {
@@ -163,6 +196,9 @@ export default {
           description: this.description,
           datatype: this.datatype,
           scanClassId: this.scanClass,
+          max: parseFloat(this.max),
+          min: parseFloat(this.min),
+          deadband: parseFloat(this.deadband),
           value: this.value.toString(),
         }
       } else {
@@ -187,6 +223,9 @@ export default {
         this.description = this.initialData.description
         this.datatype = this.initialData.datatype
         this.scanClass = this.initialData.scanClass.id
+        this.max = `${this.initialData.max}`
+        this.min = `${this.initialData.min}`
+        this.deadband = `${this.initialData.deadband}`
         this.value = this.initialData.value
       }
     },

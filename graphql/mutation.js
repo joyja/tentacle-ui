@@ -65,6 +65,9 @@ const createTag = gql`
     $description: String!
     $value: String!
     $datatype: Datatype!
+    $min: Float!
+    $max: Float!
+    $deadband: Float!
     $scanClassId: ID!
   ) {
     createTag(
@@ -72,6 +75,9 @@ const createTag = gql`
       description: $description
       value: $value
       datatype: $datatype
+      min: $min
+      max: $max
+      deadband: $deadband
       scanClassId: $scanClassId
     ) {
       ...TagBasic
@@ -88,6 +94,9 @@ const updateTag = gql`
     $value: String!
     $datatype: Datatype!
     $scanClassId: ID!
+    $max: Float!
+    $min: Float!
+    $deadband: Float!
   ) {
     updateTag(
       id: $id
@@ -96,6 +105,9 @@ const updateTag = gql`
       value: $value
       datatype: $datatype
       scanClassId: $scanClassId
+      max: $max
+      min: $min
+      deadband: $deadband
     ) {
       ...TagBasic
     }
