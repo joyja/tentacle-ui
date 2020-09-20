@@ -51,6 +51,8 @@ describe('Tag Form:', () => {
     })
     expect(wrapper.vm.identifier).toBe('Create')
     mocks.$apollo.mutate.mockResolvedValueOnce()
+    wrapper.find('#tagCreatemax').setValue('')
+    await Vue.nextTick()
     wrapper.find('#tagCreatename').setValue('aTag')
     wrapper.find('#tagCreatedescription').setValue('A really great tag')
     wrapper.find('#tagCreatevalue').setValue(100)
