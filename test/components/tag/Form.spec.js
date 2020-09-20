@@ -54,6 +54,9 @@ describe('Tag Form:', () => {
     wrapper.find('#tagCreatename').setValue('aTag')
     wrapper.find('#tagCreatedescription').setValue('A really great tag')
     wrapper.find('#tagCreatevalue').setValue(100)
+    wrapper.find('#tagCreatemax').setValue(200)
+    wrapper.find('#tagCreatemin').setValue(0)
+    wrapper.find('#tagCreatedeadband').setValue(1)
     wrapper.find('#tagCreatedatatype').setValue('FLOAT')
     wrapper.find('#tagCreatescanClass').setValue(1)
     await new Promise((resolve) =>

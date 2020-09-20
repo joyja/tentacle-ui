@@ -25,6 +25,7 @@ const tag = gql`
     datatype
     max
     min
+    deadband
     units
     scanClass {
       ...ScanClassBasic
