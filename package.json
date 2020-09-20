@@ -28,7 +28,7 @@
     "graphql-tag": "^2.10.3",
     "nuxt": "^2.12.2",
     "nuxt-start": "^2.12.2",
-    "vuetify": "^2.2.29"
+    "vuetify": "^2.2.31"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.9.6",
