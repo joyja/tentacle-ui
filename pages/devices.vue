@@ -275,6 +275,9 @@ export default {
       query: graphql.query.devices,
       subscribeToMore: {
         document: graphql.subscription.deviceUpdate,
+        // updateQuery: (previousResult, { supbscriptionData }) => {
+        //   console.log(supbscriptionData)
+        // },
       },
     },
   },
