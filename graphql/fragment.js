@@ -58,10 +58,114 @@ const tag = gql`
           }
         }
       }
+      ... on OpcuaSource {
+        nodeId
+        opcua {
+          status
+          device {
+            id
+            name
+            description
+          }
+        }
+      }
     }
   }
   ${user}
   ${scanClass}
+`
+const opcuaNode = gql`
+  fragment OpcuaNodeBasic on OpcuaNode {
+    id
+    name
+    datatype
+    value
+    children {
+      id
+      name
+      datatype
+      value
+      children {
+        id
+        name
+        datatype
+        value
+        children {
+          id
+          name
+          datatype
+          value
+          children {
+            id
+            name
+            datatype
+            value
+            children {
+              id
+              name
+              datatype
+              value
+              children {
+                id
+                name
+                datatype
+                value
+                children {
+                  id
+                  name
+                  datatype
+                  value
+                  children {
+                    id
+                    name
+                    datatype
+                    value
+                    children {
+                      id
+                      name
+                      datatype
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+const opcuaSource = gql`
+  fragment OpcuaSourceBasic on OpcuaSource {
+    tag {
+      ...TagBasic
+    }
+    nodeId
+  }
+  ${tag}
+`
+
+const opcua = gql`
+  fragment OpcuaBasic on Opcua {
+    id
+    host
+    port
+    status
+    nodes {
+      ...OpcuaNodeBasic
+    }
+    flatNodes {
+      id
+      name
+    }
+    sources {
+      ...OpcuaSourceBasic
+    }
+  }
+  ${opcuaNode}
+  ${opcuaSource}
 `
 
 const modbusSource = gql`
@@ -90,7 +194,6 @@ const modbus = gql`
     status
     zeroBased
   }
-  ${tag}
   ${modbusSource}
 `
 
@@ -135,12 +238,16 @@ const device = gql`
       ... on EthernetIP {
         ...EthernetIPBasic
       }
+      ... on Opcua {
+        ...OpcuaBasic
+      }
     }
   }
   ${user}
   ${tag}
   ${modbus}
   ${ethernetip}
+  ${opcua}
 `
 
 const mqttSource = gql`
@@ -201,6 +308,8 @@ export default {
   user,
   scanClass,
   tag,
+  opcuaSource,
+  opcua,
   modbusSource,
   modbus,
   ethernetipSource,

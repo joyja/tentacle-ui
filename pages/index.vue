@@ -15,7 +15,7 @@
       <v-tabs-items v-model="tab" class="transparent">
         <v-tab-item>
           <v-row class="mb-3">
-            <v-col v-for="tag in tagsWithCalcs" :key="tag.id">
+            <v-col v-for="tag in tagsWithCalcs" :key="tag.id" cols="12">
               <v-card class="d-flex flex-column" height="100%">
                 <v-card-title headline>
                   {{ tag.name }}
@@ -45,6 +45,7 @@
                                 color="orange darken-2"
                                 readonly
                                 width="48px"
+                                @click="toggleValue(tag)"
                               ></v-switch>
                             </v-col>
                           </v-row>
@@ -183,6 +184,62 @@
                                       <span>{{ tag.source.tagname }}</span>
                                     </v-col>
                                   </v-row>
+                                </v-list-item-subtitle>
+                              </v-list-item-content>
+                              <v-list-item-action>
+                                <v-row no-gutters>
+                                  <v-col>
+                                    <v-btn
+                                      :id="`editTagSource${tag.id}Button`"
+                                      color="primary"
+                                      icon
+                                      @click="openDeviceSourceUpdateDialog(tag)"
+                                    >
+                                      <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                  </v-col>
+                                  <v-col>
+                                    <v-btn
+                                      :id="`deleteTagSource${tag.id}Button`"
+                                      color="primary"
+                                      icon
+                                      @click="openDeviceSourceDeleteDialog(tag)"
+                                    >
+                                      <v-icon>mdi-delete</v-icon>
+                                    </v-btn>
+                                  </v-col>
+                                </v-row>
+                              </v-list-item-action>
+                            </v-list-item>
+                            <v-list-item
+                              v-else-if="
+                                tag.source &&
+                                tag.source.__typename === 'OpcuaSource'
+                              "
+                            >
+                              <v-list-item-avatar>
+                                <v-icon
+                                  :color="
+                                    tag.source.opcua.status !== 'connected'
+                                      ? 'orange'
+                                      : 'primary'
+                                  "
+                                  v-text="
+                                    getDeviceStatusIcon(tag.source.opcua.status)
+                                  "
+                                  >mdi-lan-check</v-icon
+                                >
+                              </v-list-item-avatar>
+                              <v-list-item-content>
+                                <v-list-item-title
+                                  v-text="tag.source.opcua.device.name"
+                                />
+                                <v-list-item-subtitle
+                                  v-text="tag.source.opcua.device.description"
+                                />
+                                <v-list-item-subtitle>
+                                  <strong>node ID:</strong>
+                                  {{ truncateLeft(tag.source.nodeId, 15) }}
                                 </v-list-item-subtitle>
                               </v-list-item-content>
                               <v-list-item-action>
@@ -476,6 +533,18 @@ export default {
     },
   },
   methods: {
+    truncateLeft(str, maxChars) {
+      return `...${str.slice(-maxChars)}`
+    },
+    toggleValue(tag) {
+      this.$apollo.mutate({
+        mutation: graphql.mutation.updateTag,
+        variables: {
+          id: tag.id,
+          value: !(tag.value + '' === 'true') ? 'true' : 'false',
+        },
+      })
+    },
     openScanClassUpdateDialog(scanClass) {
       this.scanClassSelected = scanClass
       this.scanClassEditDialog = true

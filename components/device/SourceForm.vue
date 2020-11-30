@@ -45,6 +45,17 @@
               :rules="tagnameRules"
             ></v-text-field>
           </div>
+          <div v-else-if="device && device.config.__typename === 'Opcua'">
+            <v-autocomplete
+              :id="`deviceSource${identifier}opcuaNodeId`"
+              v-model="nodeId"
+              name="nodeId"
+              label="Node"
+              item-text="name"
+              item-value="id"
+              :items="device.config.flatNodes"
+            ></v-autocomplete>
+          </div>
         </v-expand-transition>
         <v-alert
           transition="scale-transition"
@@ -144,6 +155,7 @@ export default {
       registerTypeRules: [(v) => !!v || 'register type is required.'],
       tagname: null,
       tagnameRules: [(v) => !!v || 'tagname is required.'],
+      nodeId: null,
       error: null,
       valid: false,
     }

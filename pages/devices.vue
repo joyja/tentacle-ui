@@ -151,6 +151,39 @@
                 <v-list-item-action />
               </v-list-item>
             </v-list>
+            <v-list
+              v-if="device.config.__typename === 'Opcua'"
+              style="width: 400px;"
+              dense
+              class="blue-grey lighten-5"
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <span class="font-weight-bold text-right">Status:</span>
+                </v-list-item-content>
+                <v-list-item-content class="align-end">
+                  <span class="text-capitalize text-center">{{
+                    device.config.status
+                  }}</span>
+                </v-list-item-content>
+                <v-list-item-action
+                  ><v-icon
+                    v-text="getStatusIcon(device.config.status)"
+                  ></v-icon>
+                </v-list-item-action>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <span class="font-weight-bold text-right">Host:</span>
+                </v-list-item-content>
+                <v-list-item-content class="align-end">
+                  <span class="text-center"
+                    >{{ device.config.host }}:{{ device.config.port }}</span
+                  >
+                </v-list-item-content>
+                <v-list-item-action />
+              </v-list-item>
+            </v-list>
           </v-card-text>
           <v-spacer></v-spacer>
           <v-card-actions>
@@ -171,6 +204,41 @@
                 @click.stop="openDeviceDeleteDialog(device)"
                 ><v-icon left>mdi-delete</v-icon>delete</v-btn
               >
+            </v-col>
+            <v-col v-if="device.config.__typename === 'Opcua'">
+              <v-dialog max-width="700px" scrollable>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    :id="`browseDevice${device.id}Button`"
+                    color="primary"
+                    block
+                    v-bind="attrs"
+                    v-on="on"
+                    ><v-icon left>mdi-eye</v-icon>browse</v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title>{{ device.name }} OPCUA Tags</v-card-title>
+                  <v-card-text>
+                    <v-treeview transition dense :items="[device.config.nodes]">
+                      <template v-slot:append="{ item }">
+                        <div
+                          v-if="
+                            item.datatype === 'Boolean' ||
+                            item.datatype === 'Float' ||
+                            item.datatype === 'String' ||
+                            (item.datatype && item.datatype.includes('Int'))
+                          "
+                          style="max-width: 250px;"
+                          class="text-truncate"
+                        >
+                          {{ item.value }}
+                        </div>
+                      </template>
+                    </v-treeview>
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
             </v-col>
           </v-card-actions>
         </v-card>
