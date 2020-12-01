@@ -189,7 +189,7 @@ describe('Index Page', () => {
     wrapper.vm.toggleValue(mockTags[1])
     wrapper.vm.toggleValue({ value: true })
     setTimeout(() => {
-      expect(mocks.$apollo.mutate).toBeCalledTimes(2)
+      expect(mocks.$apollo.mutate).toBeCalledTimes(3)
       done()
     }, 0)
   })
