@@ -37,6 +37,7 @@ const mocks = {
         refetch: jest.fn(),
       },
     },
+    mutate: jest.fn(),
   },
 }
 
@@ -180,6 +181,15 @@ describe('Index Page', () => {
       expect(wrapper.vm.deviceSourceDeleteDialog).toBe(true)
       expect(wrapper.vm.deviceSourceEditDialog).toBe(false)
       wrapper.setData({ deviceSourceDeleteDialog: false })
+      done()
+    }, 0)
+  })
+  test('Clicking the toggleValue tag of a boolean switch toggles the tag.', (done) => {
+    wrapper.find(`#tag${mockTags[1].id}Switch`).trigger('click')
+    wrapper.vm.toggleValue(mockTags[1])
+    wrapper.vm.toggleValue({ value: true })
+    setTimeout(() => {
+      expect(mocks.$apollo.mutate).toBeCalledTimes(2)
       done()
     }, 0)
   })

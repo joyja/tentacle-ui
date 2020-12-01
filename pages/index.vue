@@ -40,6 +40,7 @@
                           <v-row v-else justify-center>
                             <v-col width="48px">
                               <v-switch
+                                :id="`tag${tag.id}Switch`"
                                 v-model="tag.value"
                                 class="switch--center"
                                 color="orange darken-2"
