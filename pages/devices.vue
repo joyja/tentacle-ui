@@ -26,7 +26,7 @@
           <v-card-text v-if="device.config" class="d-flex justify-center">
             <v-list
               v-if="device.config.__typename === 'Modbus'"
-              style="width: 400px;"
+              style="width: 400px"
               dense
               class="blue-grey lighten-5"
             >
@@ -122,7 +122,7 @@
             </v-list>
             <v-list
               v-if="device.config.__typename === 'EthernetIP'"
-              style="width: 400px;"
+              style="width: 400px"
               dense
               class="blue-grey lighten-5"
             >
@@ -153,7 +153,7 @@
             </v-list>
             <v-list
               v-if="device.config.__typename === 'Opcua'"
-              style="width: 400px;"
+              style="width: 400px"
               dense
               class="blue-grey lighten-5"
             >
@@ -207,7 +207,7 @@
             </v-col>
             <v-col v-if="device.config.__typename === 'Opcua'">
               <v-dialog max-width="700px" scrollable>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     :id="`browseDevice${device.id}Button`"
                     color="primary"
@@ -221,7 +221,7 @@
                   <v-card-title>{{ device.name }} OPCUA Tags</v-card-title>
                   <v-card-text>
                     <v-treeview transition dense :items="[device.config.nodes]">
-                      <template v-slot:append="{ item }">
+                      <template #append="{ item }">
                         <div
                           v-if="
                             item.datatype === 'Boolean' ||
@@ -229,7 +229,7 @@
                             item.datatype === 'String' ||
                             (item.datatype && item.datatype.includes('Int'))
                           "
-                          style="max-width: 250px;"
+                          style="max-width: 250px"
                           class="text-truncate"
                         >
                           {{ item.value }}
@@ -245,7 +245,7 @@
       </v-col>
     </v-row>
     <v-dialog v-model="deviceCreateDialog" max-width="500px">
-      <template v-slot:activator="{ on }">
+      <template #activator="{ on }">
         <v-btn block outlined color="secondary" v-on="on"
           ><v-icon left>mdi-plus</v-icon>create device</v-btn
         >
@@ -277,6 +277,8 @@ export default {
   components: {
     jarDeviceForm: DeviceForm,
   },
+  middleware: 'auth',
+  transition: 'slide-y-transition',
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
     const client = provider.defaultClient
@@ -306,6 +308,11 @@ export default {
       deviceDeleteDialog: false,
     }
   },
+  head() {
+    return {
+      title: 'Devices',
+    }
+  },
   methods: {
     openDeviceUpdateDialog(device) {
       this.deviceSelected = device
@@ -331,13 +338,6 @@ export default {
       }
     },
   },
-  head() {
-    return {
-      title: 'Devices',
-    }
-  },
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   apollo: {
     devices: {
       query: graphql.query.devices,

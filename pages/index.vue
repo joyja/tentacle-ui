@@ -6,16 +6,18 @@
       color="primary"
       slider-color="primary"
     >
-      <v-tab id="tabTag">
-        Tags
-      </v-tab>
-      <v-tab id="tabScanClass">
-        Scan Classes
-      </v-tab>
+      <v-tab id="tabTag"> Tags </v-tab>
+      <v-tab id="tabScanClass"> Scan Classes </v-tab>
       <v-tabs-items v-model="tab" class="transparent">
         <v-tab-item>
           <v-row class="mb-3">
-            <v-col v-for="tag in tagsWithCalcs" :key="tag.id" cols="12">
+            <v-col
+              v-for="tag in tagsWithCalcs"
+              :key="tag.id"
+              cols="12"
+              sm="6"
+              xl="3"
+            >
               <v-card class="d-flex flex-column" height="100%">
                 <v-card-title headline>
                   {{ tag.name }}
@@ -55,7 +57,7 @@
                       <v-row justify-center dense>
                         <v-col class="text-center">
                           <v-tooltip right transition="slide-x-transition">
-                            <template v-slot:activator="{ on }">
+                            <template #activator="{ on }">
                               <span v-on="on">
                                 Scan Rate: {{ tag.scanClass.rate }} ms
                               </span>
@@ -69,9 +71,7 @@
                   <v-row no-gutters class="flex-grow-0">
                     <v-col>
                       <v-card outlined>
-                        <v-card-title class="subtitle-1">
-                          Source
-                        </v-card-title>
+                        <v-card-title class="subtitle-1"> Source </v-card-title>
                         <v-card-text>
                           <v-list
                             v-if="tag.source"
@@ -306,7 +306,7 @@
             </v-col>
           </v-row>
           <v-dialog v-model="tagCreateDialog" max-width="500px">
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn block outlined color="secondary" v-on="on"
                 ><v-icon left>mdi-plus</v-icon>create tag</v-btn
               >
@@ -411,7 +411,7 @@
                 </v-col>
               </v-row>
               <v-dialog v-model="scanClassCreateDialog" max-width="500px">
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-btn block outlined color="secondary" v-on="on"
                     ><v-icon left>mdi-plus</v-icon>create scan class</v-btn
                   >
@@ -452,6 +452,8 @@ export default {
     jarTagForm: TagForm,
     jarDeviceSourceForm: DeviceSourceForm,
   },
+  middleware: 'auth',
+  transition: 'slide-y-transition',
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
     const client = provider.defaultClient
@@ -511,6 +513,11 @@ export default {
       deviceSourceEditDialog: false,
       deviceSourceDeleteDialog: false,
       tab: 0,
+    }
+  },
+  head() {
+    return {
+      title: 'Tags',
     }
   },
   computed: {
@@ -597,13 +604,6 @@ export default {
       }
     },
   },
-  head() {
-    return {
-      title: 'Tags',
-    }
-  },
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   apollo: {
     scanClasses: {
       query: graphql.query.scanClasses,

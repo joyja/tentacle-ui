@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-center" style="min-width: 400px;">
+  <div class="d-flex flex-column align-center" style="min-width: 400px">
     <v-card class="mb-3" width="100%">
       <v-form
         ref="loginForm"

@@ -29,7 +29,7 @@
       <img src="~/assets/tentacle.png" />
       <v-spacer></v-spacer>
       <v-menu v-if="user" offset-y>
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-btn slot="activator" text v-on="on">
             <v-icon left>mdi-account</v-icon>
             {{ user.username }}
@@ -42,10 +42,10 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <nuxt />
-    </v-content>
-    <v-footer style="z-index: 5;" color="blue-grey darken-4" dark fixed app>
+    </v-main>
+    <v-footer style="z-index: 5" color="blue-grey darken-4" dark fixed app>
       <span>&copy; JAR Automation {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
