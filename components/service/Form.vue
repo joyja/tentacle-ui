@@ -106,9 +106,7 @@
           :rules="configRules.recordLimit"
         ></v-text-field>
         <v-card flat color="blue-grey lighten-5">
-          <v-card-title class="subtitle-1">
-            Primary Hosts
-          </v-card-title>
+          <v-card-title class="subtitle-1"> Primary Hosts </v-card-title>
           <v-card-text>
             <v-list v-if="config.primaryHosts.length > 0">
               <v-list-item
@@ -154,9 +152,7 @@
           </v-card-actions>
         </v-card>
         <v-card flat color="blue-grey lighten-5">
-          <v-card-title class="subtitle-1">
-            Devices
-          </v-card-title>
+          <v-card-title class="subtitle-1"> Devices </v-card-title>
           <v-card-text>
             <v-list v-if="config.devices.length > 0">
               <v-list-item

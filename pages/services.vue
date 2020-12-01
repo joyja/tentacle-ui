@@ -192,9 +192,7 @@
               </v-col>
               <v-col v-if="service.config" class="d-flex justify-center">
                 <v-card outlined min-width="100%">
-                  <v-card-title class="subtitle-1">
-                    Devices
-                  </v-card-title>
+                  <v-card-title class="subtitle-1"> Devices </v-card-title>
                   <v-card-text
                     v-for="source in service.config.sources"
                     :key="source.device.id"
@@ -286,7 +284,7 @@
       </v-col>
     </v-row>
     <v-dialog v-model="serviceCreateDialog" scrollable max-width="500px">
-      <template v-slot:activator="{ on }">
+      <template #activator="{ on }">
         <v-btn block outlined color="secondary" v-on="on"
           ><v-icon left>mdi-plus</v-icon>create service</v-btn
         >
@@ -376,6 +374,8 @@ export default {
     jarMqttPrimaryHostForm: MqttPrimaryHostForm,
     jarMqttSourceForm: MqttSourceForm,
   },
+  middleware: 'auth',
+  transition: 'slide-y-transition',
   async asyncData({ app, params }) {
     const provider = app.apolloProvider
     const client = provider.defaultClient
@@ -421,6 +421,11 @@ export default {
       serviceMqttSourceDeleteDialog: false,
       mqttPrimaryHostSelected: null,
       mqttSourceSelected: null,
+    }
+  },
+  head() {
+    return {
+      title: 'Services',
     }
   },
   methods: {
@@ -479,13 +484,6 @@ export default {
       }
     },
   },
-  head() {
-    return {
-      title: 'Services',
-    }
-  },
-  transition: 'slide-y-transition',
-  middleware: 'auth',
   apollo: {
     services: {
       query: graphql.query.services,
