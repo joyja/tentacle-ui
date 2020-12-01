@@ -204,7 +204,7 @@ export const mockDevices = [
     createdBy: { id: '1', username: 'admin', __typename: 'User' },
     createdOn: '2020-03-12T13:53:14.000Z',
     config: {
-      __typename: 'Modbus',
+      __typename: 'Opcua',
       device: {
         id: '5',
         name: 'aDevice',
@@ -212,17 +212,13 @@ export const mockDevices = [
       },
       id: '1',
       host: 'localhost',
-      port: '502',
-      reverseBits: true,
-      reverseWords: true,
-      timeout: 5000,
+      port: '4840',
       retryRate: 5000,
       sources: [
         {
           tag: mockTags[3],
-          register: 4866,
-          registerType: 'INPUT_REGISTER',
-          __typename: 'ModbusSource',
+          nodeId: 'n=1,something',
+          __typename: 'OpcuaSource',
         },
       ],
       status: 'Error: something really bad happened',
@@ -245,10 +241,9 @@ mockTags[2].source = {
   __typename: 'ModbusSource',
 }
 mockTags[3].source = {
-  modbus: mockDevices[4].config,
-  register: 4866,
-  registerType: 'INPUT_REGISTER',
-  __typename: 'ModbusSource',
+  opcua: mockDevices[4].config,
+  nodeId: 'n=1,something',
+  __typename: 'OpcuaSource',
 }
 mockTags[4].source = {
   ethernetip: mockDevices[2].config,

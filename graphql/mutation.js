@@ -89,14 +89,14 @@ const createTag = gql`
 const updateTag = gql`
   mutation UpdateTag(
     $id: ID!
-    $name: String!
-    $description: String!
-    $value: String!
-    $datatype: Datatype!
-    $scanClassId: ID!
-    $max: Float!
-    $min: Float!
-    $deadband: Float!
+    $name: String
+    $description: String
+    $value: String
+    $datatype: Datatype
+    $scanClassId: ID
+    $max: Float
+    $min: Float
+    $deadband: Float
   ) {
     updateTag(
       id: $id

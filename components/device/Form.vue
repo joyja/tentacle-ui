@@ -105,6 +105,23 @@
               :rules="configRules.slot"
             ></v-text-field>
           </div>
+          <div v-else-if="deviceType === 'Opcua'" key="Opcua">
+            <v-text-field
+              :id="`device${identifier}confighost`"
+              v-model="config.host"
+              name="host"
+              label="Host"
+              :rules="configRules.host"
+            ></v-text-field>
+            <v-text-field
+              :id="`device${identifier}configport`"
+              v-model="config.port"
+              type="number"
+              name="port"
+              label="Port"
+              :rules="configRules.port"
+            ></v-text-field>
+          </div>
           <div v-else key="none" />
         </v-expand-transition>
         <v-alert
@@ -177,6 +194,10 @@ export default {
           value: 'EthernetIP',
           text: 'Ethernet/IP',
         },
+        {
+          value: 'Opcua',
+          text: 'OPC UA',
+        },
       ],
       config: {},
       configRules: {},
@@ -195,6 +216,10 @@ export default {
           host: 'localhost',
           slot: 0,
         },
+        Opcua: {
+          host: 'localhost',
+          port: 4840,
+        },
       },
       configRulesTemplates: {
         Modbus: {
@@ -209,6 +234,10 @@ export default {
         EthernetIP: {
           host: [(v) => !!v || 'host is required'],
           slot: [(v) => v === 0 || !!v || 'slot is required'],
+        },
+        Opcua: {
+          host: [(v) => !!v || 'host is required'],
+          port: [(v) => !!v || 'port is required'],
         },
       },
     }
@@ -232,19 +261,25 @@ export default {
       if (this.operation === `create`) {
         if (this.deviceType === 'Modbus') {
           return graphql.mutation.createModbus
-        } else {
+        } else if (this.deviceType === 'EthernetIP') {
           return graphql.mutation.createEthernetIP
+        } else {
+          return graphql.mutation.createOpcua
         }
       } else if (this.operation === `update`) {
         if (this.deviceType === 'Modbus') {
           return graphql.mutation.updateModbus
-        } else {
+        } else if (this.deviceType === 'EthernetIP') {
           return graphql.mutation.updateEthernetIP
+        } else {
+          return graphql.mutation.updateOpcua
         }
       } else if (this.deviceType === 'Modbus') {
         return graphql.mutation.deleteModbus
-      } else {
+      } else if (this.deviceType === 'EthernetIP') {
         return graphql.mutation.deleteEthernetIP
+      } else {
+        return graphql.mutation.deleteOpcua
       }
     },
     mutationVariables() {
@@ -261,12 +296,19 @@ export default {
             timeout: this.config.timeout,
             retryRate: this.config.retryRate,
           }
-        } else {
+        } else if (this.deviceType === 'EthernetIP') {
           return {
             name: this.name,
             description: this.description,
             host: this.config.host,
             slot: parseInt(this.config.slot),
+          }
+        } else {
+          return {
+            name: this.name,
+            description: this.description,
+            host: this.config.host,
+            port: parseInt(this.config.port),
           }
         }
       } else if (this.operation === `update`) {
@@ -283,13 +325,21 @@ export default {
             timeout: this.config.timeout,
             retryRate: this.config.retryRate,
           }
-        } else {
+        } else if (this.deviceType === 'EthernetIP') {
           return {
             id: this.initialData.id,
             name: this.name,
             description: this.description,
             host: this.config.host,
             slot: parseInt(this.config.slot),
+          }
+        } else {
+          return {
+            id: this.initialData.id,
+            name: this.name,
+            description: this.description,
+            host: this.config.host,
+            port: parseInt(this.config.port),
           }
         }
       } else {
@@ -317,7 +367,7 @@ export default {
         this.name = this.initialData.name
         this.description = this.initialData.description
         this.deviceType = this.initialData.config.__typename
-        this.config = this.configTemplates[this.deviceType]
+        this.config = this.initialData.config
         this.configRules = this.configRulesTemplates[this.deviceType]
       }
     },

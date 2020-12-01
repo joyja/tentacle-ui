@@ -117,6 +117,42 @@ describe('Device Form:', () => {
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
     wrapper.destroy()
   })
+  test('Create prop uses create format and submit with opcua type runs createOpcua.', async () => {
+    const wrapper = mount(Form, {
+      ...wrapperOptions,
+      vuetify,
+      attachTo: getDiv(),
+      propsData: {
+        ...wrapperOptions.propsData,
+        operation: 'create',
+      },
+    })
+    expect(wrapper.vm.identifier).toBe('Create')
+    mocks.$apollo.mutate.mockResolvedValueOnce()
+    wrapper.find('#deviceCreatename').setValue('adevice')
+    wrapper.find('#deviceCreatedescription').setValue('A really great device')
+    wrapper.find('.v-select').vm.selectItem('Opcua')
+    // Let vuejs render out the modbus config
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve()
+      }, 0)
+    )
+    wrapper.find('#deviceCreateconfighost').setValue('')
+    wrapper.find('#deviceCreateconfigport').setValue('')
+    await Vue.nextTick()
+    wrapper.find('#deviceCreateconfighost').setValue('localhost')
+    wrapper.find('#deviceCreateconfigport').setValue(1)
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve()
+      }, 0)
+    )
+    expect(wrapper.vm.mutation).toEqual(graphql.mutation.createOpcua)
+    wrapper.find('button').trigger('click')
+    expect(mocks.$apollo.mutate).toBeCalledTimes(1)
+    wrapper.destroy()
+  })
   test('Update prop uses update format and submit runs modbus update.', async () => {
     mocks.$apollo.mutate.mockResolvedValueOnce({})
     const wrapper = mount(Form, {
@@ -163,6 +199,29 @@ describe('Device Form:', () => {
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
     wrapper.destroy()
   })
+  test('Update prop uses update format and submit runs Opcua update.', async () => {
+    mocks.$apollo.mutate.mockResolvedValueOnce({})
+    const wrapper = mount(Form, {
+      ...wrapperOptions,
+      vuetify,
+      attachTo: getDiv(),
+      propsData: {
+        ...wrapperOptions.propsData,
+        initialData: mockDevices[4],
+        operation: 'update',
+      },
+    })
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve()
+      }, 0)
+    )
+    expect(wrapper.vm.identifier).toBe('Update')
+    expect(wrapper.vm.mutation).toEqual(graphql.mutation.updateOpcua)
+    wrapper.find('button').trigger('click')
+    expect(mocks.$apollo.mutate).toBeCalledTimes(1)
+    wrapper.destroy()
+  })
   test('Delete prop uses delete format and submit runs delete.', async () => {
     mocks.$apollo.mutate.mockResolvedValueOnce({})
     const wrapper = mount(Form, {
@@ -195,6 +254,25 @@ describe('Device Form:', () => {
     })
     expect(wrapper.vm.identifier).toBe('Delete')
     expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteEthernetIP)
+    await Vue.nextTick()
+    wrapper.find('button').trigger('click')
+    expect(mocks.$apollo.mutate).toBeCalledTimes(1)
+    wrapper.destroy()
+  })
+  test('Delete prop uses delete format and submit runs delete.', async () => {
+    mocks.$apollo.mutate.mockResolvedValueOnce({})
+    const wrapper = mount(Form, {
+      ...wrapperOptions,
+      vuetify,
+      attachTo: getDiv(),
+      propsData: {
+        ...wrapperOptions.propsData,
+        initialData: mockDevices[4],
+        operation: 'delete',
+      },
+    })
+    expect(wrapper.vm.identifier).toBe('Delete')
+    expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteOpcua)
     await Vue.nextTick()
     wrapper.find('button').trigger('click')
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
