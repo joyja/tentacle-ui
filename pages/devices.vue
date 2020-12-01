@@ -205,7 +205,7 @@
                 ><v-icon left>mdi-delete</v-icon>delete</v-btn
               >
             </v-col>
-            <v-col v-if="device.config.__typename === 'Opcua'">
+            <v-col v-if="device.config && device.config.__typename === 'Opcua'">
               <v-dialog max-width="700px" scrollable>
                 <template #activator="{ on, attrs }">
                   <v-btn
@@ -224,10 +224,11 @@
                       <template #append="{ item }">
                         <div
                           v-if="
-                            item.datatype === 'Boolean' ||
-                            item.datatype === 'Float' ||
-                            item.datatype === 'String' ||
-                            (item.datatype && item.datatype.includes('Int'))
+                            item &&
+                            (item.datatype === 'Boolean' ||
+                              item.datatype === 'Float' ||
+                              item.datatype === 'String' ||
+                              (item.datatype && item.datatype.includes('Int')))
                           "
                           style="max-width: 250px"
                           class="text-truncate"

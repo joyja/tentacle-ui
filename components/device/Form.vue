@@ -121,6 +121,16 @@
               label="Port"
               :rules="configRules.port"
             ></v-text-field>
+            <v-text-field
+              :id="`device${identifier}retryRate`"
+              v-model="config.retryRate"
+              type="number"
+              name="retryRate"
+              label="Retry Rate"
+              min="0"
+              step="1"
+              :rules="configRules.retryRate"
+            ></v-text-field>
           </div>
           <div v-else key="none" />
         </v-expand-transition>
@@ -309,6 +319,7 @@ export default {
             description: this.description,
             host: this.config.host,
             port: parseInt(this.config.port),
+            retryRate: parseInt(this.config.retryRate),
           }
         }
       } else if (this.operation === `update`) {
@@ -340,6 +351,7 @@ export default {
             description: this.description,
             host: this.config.host,
             port: parseInt(this.config.port),
+            retryRate: parseInt(this.config.retryRate),
           }
         }
       } else {

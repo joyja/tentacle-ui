@@ -322,6 +322,86 @@ const deleteEthernetIPSource = gql`
   ${fragment.ethernetipSource}
 `
 
+const createOpcua = gql`
+  mutation CreateOpcua(
+    $name: String!
+    $description: String!
+    $host: String!
+    $port: Int!
+    $retryRate: Int!
+  ) {
+    createOpcua(
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      retryRate: $retryRate
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const updateOpcua = gql`
+  mutation UpdateOpcua(
+    $id: ID!
+    $name: String
+    $description: String
+    $host: String
+    $port: Int
+    $retryRate: Int
+  ) {
+    updateOpcua(
+      id: $id
+      name: $name
+      description: $description
+      host: $host
+      port: $port
+      retryRate: $retryRate
+    ) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const deleteOpcua = gql`
+  mutation DeleteOpcua($id: ID!) {
+    deleteOpcua(id: $id) {
+      ...DeviceBasic
+    }
+  }
+  ${fragment.device}
+`
+
+const createOpcuaSource = gql`
+  mutation CreateOpcuaSource($deviceId: ID!, $tagId: ID!, $nodeId: String!) {
+    createOpcuaSource(deviceId: $deviceId, tagId: $tagId, nodeId: $nodeId) {
+      ...OpcuaSourceBasic
+    }
+  }
+  ${fragment.opcuaSource}
+`
+
+const updateOpcuaSource = gql`
+  mutation UpdateOpcuaSource($tagId: ID!, $nodeId: String!) {
+    updateOpcuaSource(tagId: $tagId, nodeId: $nodeId) {
+      ...OpcuaSourceBasic
+    }
+  }
+  ${fragment.opcuaSource}
+`
+
+const deleteOpcuaSource = gql`
+  mutation DeleteOpcuaSource($tagId: ID!) {
+    deleteOpcuaSource(tagId: $tagId) {
+      ...OpcuaSourceBasic
+    }
+  }
+  ${fragment.opcuaSource}
+`
+
 const createMqtt = gql`
   mutation CreateMqtt(
     $name: String!
@@ -460,6 +540,12 @@ export default {
   createEthernetIPSource,
   updateEthernetIPSource,
   deleteEthernetIPSource,
+  createOpcua,
+  updateOpcua,
+  deleteOpcua,
+  createOpcuaSource,
+  updateOpcuaSource,
+  deleteOpcuaSource,
   createMqtt,
   updateMqtt,
   deleteMqtt,
