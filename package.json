@@ -1,6 +1,6 @@
 {
   "name": "tentacle-edge-ui",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "User interface for the tentacle industrial automation gateway",
   "author": "James A. Joy",
   "license": "GPL-3.0",
