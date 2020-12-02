@@ -180,19 +180,34 @@ export default {
       if (this.operation === `create`) {
         if (this.device && this.device.config.__typename === 'Modbus') {
           return graphql.mutation.createModbusSource
-        } else {
+        } else if (
+          this.device &&
+          this.device.config.__typename === 'EthernetIP'
+        ) {
           return graphql.mutation.createEthernetIPSource
+        } else {
+          return graphql.mutation.createOpcuaSource
         }
       } else if (this.operation === `update`) {
         if (this.device && this.device.config.__typename === 'Modbus') {
           return graphql.mutation.updateModbusSource
-        } else {
+        } else if (
+          this.device &&
+          this.device.config.__typename === 'EthernetIP'
+        ) {
           return graphql.mutation.updateEthernetIPSource
+        } else {
+          return graphql.mutation.updateOpcuaSource
         }
       } else if (this.device && this.device.config.__typename === 'Modbus') {
         return graphql.mutation.deleteModbusSource
-      } else {
+      } else if (
+        this.device &&
+        this.device.config.__typename === 'EthernetIP'
+      ) {
         return graphql.mutation.deleteEthernetIPSource
+      } else {
+        return graphql.mutation.deleteOpcuaSource
       }
     },
     mutationVariables() {
@@ -204,11 +219,20 @@ export default {
             register: parseInt(this.register),
             registerType: this.registerType,
           }
-        } else {
+        } else if (
+          this.device &&
+          this.device.config.__typename === 'EthernetIP'
+        ) {
           return {
             tagId: this.tag.id,
             deviceId: this.deviceId,
             tagname: this.tagname,
+          }
+        } else {
+          return {
+            tagId: this.tag.id,
+            deviceId: this.deviceId,
+            nodeId: this.nodeId,
           }
         }
       } else if (this.operation === `update`) {
@@ -218,10 +242,18 @@ export default {
             register: parseInt(this.register),
             registerType: this.registerType,
           }
-        } else {
+        } else if (
+          this.device &&
+          this.device.config.__typename === 'EthernetIP'
+        ) {
           return {
             tagId: this.tag.id,
             tagname: this.tagname,
+          }
+        } else {
+          return {
+            tagId: this.tag.id,
+            nodeId: this.nodeId,
           }
         }
       } else {
@@ -257,6 +289,14 @@ export default {
       ) {
         this.deviceId = this.initialData.ethernetip.device.id
         this.tagname = this.initialData.tagname
+      }
+      if (
+        this.operation !== `create` &&
+        this.initialData &&
+        this.initialData.opcua
+      ) {
+        this.deviceId = this.initialData.opcua.device.id
+        this.nodeId = this.initialData.nodeId
       }
     },
     async submit() {

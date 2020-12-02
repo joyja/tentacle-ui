@@ -152,6 +152,7 @@ const opcua = gql`
     id
     host
     port
+    retryRate
     status
     nodes {
       ...OpcuaNodeBasic

@@ -16,7 +16,6 @@ export default {
     tentacleClientPort: process.env.TENTACLE_CLIENT_PORT,
     tentacleClientUrl: process.env.TENTACLE_CLIENT_URL,
   },
-  mode: 'universal',
   /*
    ** Headers of the page
    */
