@@ -177,7 +177,7 @@ describe('Device Source Form:', () => {
       },
     })
     expect(wrapper.vm.identifier).toBe('Delete')
-    expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteEthernetIPSource)
+    expect(wrapper.vm.mutation).toEqual(graphql.mutation.deleteOpcuaSource)
     await Vue.nextTick()
     wrapper.find('button').trigger('click')
     expect(mocks.$apollo.mutate).toBeCalledTimes(1)
