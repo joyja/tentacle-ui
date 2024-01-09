@@ -27,8 +27,8 @@
     "@nuxtjs/vuetify": "^1.11.3",
     "core-js": "^3.11.0",
     "graphql-tag": "^2.11.0",
-    "nuxt": "^2.15.4",
-    "nuxt-start": "^2.15.4",
+    "nuxt": "^3.0.0",
+    "nuxt-start": "^2.16.0",
     "vuetify": "^2.4.11"
   },
   "devDependencies": {
